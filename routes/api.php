@@ -16,3 +16,26 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::resource('tags', 'TagAPIController');
+
+Route::resource('category_articles', 'Category_articleAPIController');
+
+Route::resource('category_places', 'Category_placeAPIController');
+
+Route::resource('facilities', 'FacilityAPIController');
+
+Route::resource('organizations', 'OrganizationAPIController');
+
+Route::resource('cities', 'CityAPIController');
+
+Route::resource('districts', 'DistrictAPIController');
+
+Route::resource('articles', 'ArticleAPIController');
+
+Route::resource('places', 'PlaceAPIController');
+
+Route::resource('areas', 'AreaAPIController');
+
+Route::resource('hours', 'HourAPIController');

@@ -19,6 +19,22 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('permissions', 'PermissionController');
 	Route::resource('roles', 'RoleController');
 	Route::resource('users', 'UserController');
+
+	Route::resource('tags', 'TagController');
+	Route::resource('categoryArticles', 'Category_articleController');
+	Route::resource('categoryPlaces', 'Category_placeController');
+	Route::resource('facilities', 'FacilityController');
+	Route::resource('organizations', 'OrganizationController');
+	Route::resource('areas', 'AreaController');
+	Route::resource('hours', 'HourController');
+
+	Route::resource('cities', 'CityController');
+	Route::resource('districts', 'DistrictController');
+
+	Route::resource('articles', 'ArticleController');
+	Route::resource('places', 'PlaceController');
+
+	Route::post('/articles/{id}/delete', 'ArticleController@deleteImage')->name('articles.delete');
 });
 
 Route::get('/home', 'HomeController@index');
