@@ -159,29 +159,36 @@ class ArticleController extends AppBaseController
         $request->except($field);
         return implode(',', $arr);
     }
-
-    private function requestToInput(Request $request, $article = null) {
-        $input = $request->all();
-
-        $input['photos'] = $this->uploadImages($request, $article->photos);
-
-        foreach($request->input($field) as $item) {
+    private function tagArrToStr(Request $request, $field) {
+        $arr = $request->input($field);
+        if (empty($arr)) return null;
+        $request->except($field);
+        $newArr = array();
+        foreach($arr as $item) {
             if (!is_numeric($item)) {
                 $tag = new Tag;
                 $tag->name = $item;
                 $tag->save();
-            }
+                array_push($newArr, $tag->id);
+            } else
+                array_push($newArr, $item);
         }
-        $input['tags_public'] = $this->arrToStr($request, 'tags_public');
-        $input['tags_private'] = $this->arrToStr($request, 'tags_private');
+        return implode(',', $newArr);
+    }
+
+    private function requestToInput(Request $request, $article = null) {
+        $input = $request->all();
+
+        $input['photos'] = $this->uploadImages($request, $article != null ? $article->photos : null);
+
+        $input['tags_public'] = $this->tagArrToStr($request, 'tags_public');
+        $input['tags_private'] = $this->tagArrToStr($request, 'tags_private');
         $input['categories'] = $this->arrToStr($request, 'categories');
         $input['facilities'] = $this->arrToStr($request, 'facilities');
         $input['related_articles'] = $this->arrToStr($request, 'related_articles');
         $input['related_places'] = $this->arrToStr($request, 'related_places');
 
         $input['content'] = $this->editor($input['content']);
-
-        echo $input['tags_public'];
 
         return $input;
     }
@@ -263,11 +270,11 @@ class ArticleController extends AppBaseController
             return redirect(route('articles.index'));
         }
         $this->requestToInput($request, $article);
-        /*$article = $this->articleRepository->update($this->requestToInput($request, $article), $id);
+        $article = $this->articleRepository->update($this->requestToInput($request, $article), $id);
 
         Flash::success('Article updated successfully.');
 
-        return redirect(route('articles.index'));*/
+        return redirect(route('articles.index'));
     }
 
     /**
