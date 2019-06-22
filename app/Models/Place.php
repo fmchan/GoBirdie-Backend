@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 /**
  * Class Place
  * @package App\Models
@@ -46,124 +43,40 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer rank
  * @property string status
  */
-class Place extends Model
+class Place extends GenericModel
 {
-    use SoftDeletes;
-
-    public $table = 'places';
-    
-
-    protected $dates = ['deleted_at'];
-
-
-    public $fillable = [
-        'title',
-        'city',
-        'district',
-        'categories',
-        'organization',
-        'heart',
-        'bookmark',
-        'address',
-        'gps',
-        'transport_short',
-        'transport_long',
-        'telephone',
-        'age_start',
-        'age_end',
-        'book',
-        'opening',
-        'opening_hours',
-        'fee',
-        'fee_number',
-        'areas',
-        'tags_public',
-        'tags_private',
-        'email',
-        'website',
-        'content',
-        'facilities',
-        'photos',
-        'related_articles',
-        'related_places',
-        'rank',
-        'status'
-    ];
-
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'title' => 'string',
-        'city' => 'integer',
-        'district' => 'integer',
-        'categories' => 'string',
-        'organization' => 'integer',
-        'heart' => 'integer',
-        'bookmark' => 'integer',
-        'address' => 'string',
-        'gps' => 'string',
-        'transport_short' => 'string',
-        'transport_long' => 'string',
-        'telephone' => 'string',
-        'age_start' => 'integer',
-        'age_end' => 'integer',
-        'book' => 'boolean',
-        'opening' => 'string',
-        'opening_hours' => 'string',
-        'fee' => 'string',
-        'fee_number' => 'integer',
-        'areas' => 'string',
-        'tags_public' => 'string',
-        'tags_private' => 'string',
-        'email' => 'string',
-        'website' => 'string',
-        'content' => 'string',
-        'facilities' => 'string',
-        'photos' => 'string',
-        'related_articles' => 'string',
-        'related_places' => 'string',
-        'rank' => 'integer',
-        'status' => 'string'
-    ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static $rules = [
-        'title' => 'required',
-        'city' => 'required',
-        'district' => 'required',
-        'categories' => 'required',
-        'organization' => 'required',
-        'address' => 'required',
-        'gps' => 'required',
-        'book' => 'required',
-        'areas' => 'required',
-        'photo.*' => 'image|mimes:jpeg,png,jpg|max:10240'
-    ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function cityObj()
+    public function __construct(array $attributes = [])
     {
-        return $this->belongsTo(\App\Models\City::class, 'city');
+        $this->table = 'places';
+        $this->image_dir = 'place_images';
+        $fillable = [
+            'organization',
+            'age_start',
+            'age_end',
+            'opening_hours',
+            'fee_number',
+            'areas'
+        ];
+        $casts = [
+            'organization' => 'integer',
+            'age_start' => 'integer',
+            'age_end' => 'integer',
+            'opening_hours' => 'string',
+            'fee_number' => 'integer',
+            'areas' => 'string'
+        ];
+        //$rules = [];
+        $this->fillable = array_merge($this->fillable, $fillable);
+        $this->casts = array_merge($this->casts, $casts);
+        //self::$rules = array_merge(self::$rules, $rules);
+
+        parent::__construct($attributes);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function districtObj()
-    {
-        return $this->belongsTo(\App\Models\District::class, 'district');
+    public function getCategories() {
+        if (empty($this->categories)) return null;
+        return $this->keysToValues($this->categories, Category_place::pluck('name','id')->toArray());
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/

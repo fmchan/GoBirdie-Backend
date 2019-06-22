@@ -15,6 +15,87 @@ class GenericModel extends Model
 
     protected $dates = ['deleted_at'];
 
+    public $table;
+    public $image_dir;
+
+    public $fillable = [
+        'title',
+        'city',
+        'district',
+        'categories',
+        'heart',
+        'bookmark',
+        'address',
+        'gps',
+        'transport_short',
+        'transport_long',
+        'telephone',
+        'book',
+        'opening',
+        'fee',
+        'tags_public',
+        'tags_private',
+        'email',
+        'website',
+        'content',
+        'facilities',
+        'photos',
+        'related_articles',
+        'related_places',
+        'rank',
+        'status'
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'title' => 'string',
+        'city' => 'integer',
+        'district' => 'integer',
+        'categories' => 'string',
+        'heart' => 'integer',
+        'bookmark' => 'integer',
+        'address' => 'string',
+        'gps' => 'string',
+        'transport_short' => 'string',
+        'transport_long' => 'string',
+        'telephone' => 'string',
+        'book' => 'boolean',
+        'opening' => 'string',
+        'fee' => 'string',
+        'tags_public' => 'string',
+        'tags_private' => 'string',
+        'email' => 'string',
+        'website' => 'string',
+        'content' => 'string',
+        'facilities' => 'string',
+        'photos' => 'string',
+        'related_articles' => 'string',
+        'related_places' => 'string',
+        'rank' => 'integer',
+        'status' => 'string'
+    ];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        'title' => 'required',
+        'city' => 'required',
+        'district' => 'required',
+        'categories' => 'required',
+        'address' => 'required',
+        'gps' => 'required',
+        'book' => 'required',
+        'photo.*' => 'image|mimes:jpeg,png,jpg|max:10240'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
@@ -37,7 +118,7 @@ class GenericModel extends Model
     }
     public function resize($i, $w = null, $h = null) {
         $photos = explode(",", $this->photos);
-        $path = '/uploads/article_images/'.$photos[$i];
+        $path = '/uploads/'.$this->image_dir.'/'.$photos[$i];
         if ($w == null && $h == null) return url($path);
         $image = '/resizer.php?';
         if ($w > -1) $image .= '&w='.$w;
@@ -47,7 +128,7 @@ class GenericModel extends Model
         return url($image);
     }
 
-    private function keysToValues($s, $l) {
+    protected function keysToValues($s, $l) {
         $r = array();
         foreach (explode(",",$s) as $v) if (isset($l[$v])) array_push($r, $l[$v]);
         return $r;
@@ -63,10 +144,6 @@ class GenericModel extends Model
     public function getFacilities() {
         if (empty($this->facilities)) return null;
         return $this->keysToValues($this->facilities, Facility::pluck('name','id')->toArray());
-    }
-    public function getCategories() {
-        if (empty($this->categories)) return null;
-        return $this->keysToValues($this->categories, Category_article::pluck('name','id')->toArray());
     }
     public function getRelatedArticles() {
         if (empty($this->articles)) return null;

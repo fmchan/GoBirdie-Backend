@@ -5,46 +5,37 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePlaceRequest;
 use App\Http\Requests\UpdatePlaceRequest;
 use App\Repositories\PlaceRepository;
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\Organization;
+use App\Models\Hour;
+use App\Models\Area;
+use App\Models\Category_place;
 
-class PlaceController extends AppBaseController
+class PlaceController extends GenericController
 {
-    /** @var  PlaceRepository */
-    private $placeRepository;
-
     public function __construct(PlaceRepository $placeRepo)
     {
-        $this->placeRepository = $placeRepo;
+        $this->tableName = 'places';
+        $this->image_dir = 'place_images';
+        $this->repo = $placeRepo;
     }
 
-    /**
-     * Display a listing of the Place.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function index(Request $request)
-    {
-        $places = $this->placeRepository->paginate(10);
-
-        return view('places.index')
-            ->with('places', $places);
+    protected function pluckData() {
+        $data = parent::pluckData();
+        $data['organizations'] = Organization::where('status','A')->pluck('name','id')->all();
+        $data['categories'] = Category_place::where('status','A')->pluck('name','id')->all();
+        $data['hours'] = Hour::where('status','A')->pluck('name','id')->all();
+        $data['areas'] = Area::where('status','A')->pluck('name','id')->all();
+        return $data;
     }
-
-    /**
-     * Show the form for creating a new Place.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('places.create');
+    protected function requestToInput(Request $request, $obj = null) {
+        $input = parent::requestToInput($request, $obj);
+        $input['opening_hours'] = $this->arrToStr($request, 'opening_hours');
+        $input['areas'] = $this->arrToStr($request, 'areas');
+        return $input;
     }
-
     /**
      * Store a newly created Place in storage.
      *
@@ -54,9 +45,7 @@ class PlaceController extends AppBaseController
      */
     public function store(CreatePlaceRequest $request)
     {
-        $input = $request->all();
-
-        $place = $this->placeRepository->create($input);
+        $place = $this->repo->create($this->requestToInput($request));
 
         Flash::success('Place saved successfully.');
 
@@ -72,7 +61,7 @@ class PlaceController extends AppBaseController
      */
     public function show($id)
     {
-        $place = $this->placeRepository->find($id);
+        $place = $this->repo->find($id);
 
         if (empty($place)) {
             Flash::error('Place not found');
@@ -92,15 +81,16 @@ class PlaceController extends AppBaseController
      */
     public function edit($id)
     {
-        $place = $this->placeRepository->find($id);
+        $place = $this->repo->find($id);
 
         if (empty($place)) {
             Flash::error('Place not found');
 
             return redirect(route('places.index'));
         }
-
-        return view('places.edit')->with('place', $place);
+        $data = $this->pluckData();
+        $data['place'] = $place;
+        return view('places.edit')->with($data);
     }
 
     /**
@@ -113,7 +103,7 @@ class PlaceController extends AppBaseController
      */
     public function update($id, UpdatePlaceRequest $request)
     {
-        $place = $this->placeRepository->find($id);
+        $place = $this->repo->find($id);
 
         if (empty($place)) {
             Flash::error('Place not found');
@@ -121,35 +111,9 @@ class PlaceController extends AppBaseController
             return redirect(route('places.index'));
         }
 
-        $place = $this->placeRepository->update($request->all(), $id);
+        $place = $this->repo->update($this->requestToInput($request, $place), $id);
 
         Flash::success('Place updated successfully.');
-
-        return redirect(route('places.index'));
-    }
-
-    /**
-     * Remove the specified Place from storage.
-     *
-     * @param int $id
-     *
-     * @throws \Exception
-     *
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        $place = $this->placeRepository->find($id);
-
-        if (empty($place)) {
-            Flash::error('Place not found');
-
-            return redirect(route('places.index'));
-        }
-
-        $this->placeRepository->delete($id);
-
-        Flash::success('Place deleted successfully.');
 
         return redirect(route('places.index'));
     }

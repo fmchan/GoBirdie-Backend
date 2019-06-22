@@ -102,17 +102,6 @@
     {!! Form::text('website', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Tags Public Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('tags_public', 'Tags (Public):') !!}
-    {!! Form::select('tags_public[]', $tags, null, ['multiple'=>'multiple','class'=>'', 'id' => 'tags_public']) !!}
-</div>
-<!-- Tags Private Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('tags_private', 'Tags (Private):') !!}
-    {!! Form::select('tags_private[]', $tags, null, ['multiple'=>'multiple','class'=>'', 'id' => 'tags_private']) !!}
-</div>
-
 <!-- Content Field -->
 <div class="form-group col-sm-12 col-lg-12">
     {!! Form::label('content', 'Content:') !!}
@@ -132,6 +121,17 @@
 <div class="form-group col-sm-12">
     {!! Form::label('photo', 'Photos:') !!}
     <input type="file" class="form-control" name="photo[]" multiple>
+</div>
+
+<!-- Tags Public Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('tags_public', 'Tags (Public):') !!}
+    {!! Form::select('tags_public[]', $tags, null, ['multiple'=>'multiple','class'=>'', 'id' => 'tags_public']) !!}
+</div>
+<!-- Tags Private Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('tags_private', 'Tags (Private):') !!}
+    {!! Form::select('tags_private[]', $tags, null, ['multiple'=>'multiple','class'=>'', 'id' => 'tags_private']) !!}
 </div>
 
 <!-- Related Articles Field -->

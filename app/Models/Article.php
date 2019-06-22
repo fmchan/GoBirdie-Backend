@@ -38,89 +38,31 @@ namespace App\Models;
  */
 class Article extends GenericModel
 {
-    public $table = 'articles';
+    public function __construct(array $attributes = [])
+    {
+        $this->table = 'articles';
+        $this->image_dir = 'article_images';
 
-    public $fillable = [
-        'title',
-        'start',
-        'end',
-        'city',
-        'district',
-        'categories',
-        'heart',
-        'bookmark',
-        'address',
-        'gps',
-        'transport_short',
-        'transport_long',
-        'telephone',
-        'book',
-        'opening',
-        'fee',
-        'tags_public',
-        'tags_private',
-        'email',
-        'website',
-        'content',
-        'facilities',
-        'photos',
-        'related_articles',
-        'related_places',
-        'rank',
-        'status'
-    ];
+        $fillable = [
+            'start',
+            'end'
+        ];
+        $casts = [
+            'start' => 'date',
+            'end' => 'date'
+        ];
+        $rules = [
+            'start' => 'required',
+            'end' => 'required'
+        ];
+        $this->fillable = array_merge($this->fillable, $fillable);
+        $this->casts = array_merge($this->casts, $casts);
+        self::$rules = array_merge(self::$rules, $rules);
 
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'id' => 'integer',
-        'title' => 'string',
-        'start' => 'date',
-        'end' => 'date',
-        'city' => 'integer',
-        'district' => 'integer',
-        'categories' => 'string',
-        'heart' => 'integer',
-        'bookmark' => 'integer',
-        'address' => 'string',
-        'gps' => 'string',
-        'transport_short' => 'string',
-        'transport_long' => 'string',
-        'telephone' => 'string',
-        'book' => 'boolean',
-        'opening' => 'string',
-        'fee' => 'string',
-        'tags_public' => 'string',
-        'tags_private' => 'string',
-        'email' => 'string',
-        'website' => 'string',
-        'content' => 'string',
-        'facilities' => 'string',
-        'photos' => 'string',
-        'related_articles' => 'string',
-        'related_places' => 'string',
-        'rank' => 'integer',
-        'status' => 'string'
-    ];
-
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    public static $rules = [
-        'title' => 'required',
-        'start' => 'required',
-        'end' => 'required',
-        'city' => 'required',
-        'district' => 'required',
-        'categories' => 'required',
-        'address' => 'required',
-        'gps' => 'required',
-        'book' => 'required',
-        'photo.*' => 'image|mimes:jpeg,png,jpg|max:10240'
-    ];
+        parent::__construct($attributes);
+    }
+    public function getCategories() {
+        if (empty($this->categories)) return null;
+        return $this->keysToValues($this->categories, Category_article::pluck('name','id')->toArray());
+    }
 }
