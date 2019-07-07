@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('places', 'PlaceController');
 
 	Route::post('/articles/{id}/delete', 'ArticleController@deleteImage')->name('articles.delete');
+	Route::post('/places/{id}/delete', 'PlaceController@deleteImage')->name('places.delete');
 });
 
 Route::get('/home', 'HomeController@index');

@@ -53,7 +53,8 @@ class District extends Model
      */
     public static $rules = [
         'name' => 'required',
-        'city' => 'required'
+        'city' => 'required',
+        'rank' => 'required'
     ];
 
     /**

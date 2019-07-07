@@ -93,6 +93,7 @@ class GenericModel extends Model
         'address' => 'required',
         'gps' => 'required',
         'book' => 'required',
+        'rank' => 'required',
         'photo.*' => 'image|mimes:jpeg,png,jpg|max:10240'
     ];
 

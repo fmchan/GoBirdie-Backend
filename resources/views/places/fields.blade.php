@@ -67,6 +67,17 @@
     {!! Form::select('facilities[]', $facilities, null, ['multiple'=>'multiple','class'=>'', 'id' => 'facilities']) !!}
 </div>
 
+<!-- Email Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('email', 'Email:') !!}
+    {!! Form::email('email', null, ['class' => 'form-control']) !!}
+</div>
+<!-- Website Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('website', 'Website:') !!}
+    {!! Form::text('website', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Book Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('book', 'Need Booking?:') !!}
@@ -113,17 +124,6 @@
 <div class="form-group col-sm-6">
     {!! Form::label('fee_number', 'Fee (numeric):') !!}
     {!! Form::number('fee_number', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Email Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('email', 'Email:') !!}
-    {!! Form::email('email', null, ['class' => 'form-control']) !!}
-</div>
-<!-- Website Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('website', 'Website:') !!}
-    {!! Form::text('website', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Content Field -->
@@ -178,7 +178,7 @@
 <!-- Status Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('status', 'Status:') !!}
-    {!! Form::select('status', ['I' => 'INACTIVE', 'A' => 'ACTIVE'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('status', ['A' => 'ACTIVE', 'I' => 'INACTIVE'], null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->

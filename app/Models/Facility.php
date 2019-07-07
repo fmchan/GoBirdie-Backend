@@ -52,7 +52,8 @@ class Facility extends Model
      */
     public static $rules = [
         'name' => 'required',
-        'photo' => 'image|mimes:jpeg,png,jpg|max:1024'
+        'rank' => 'required',
+        'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024'
     ];
 
     

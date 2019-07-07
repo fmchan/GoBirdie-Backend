@@ -17,7 +17,7 @@ class CreateFacilitiesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('icon');
-            $table->integer('rank');
+            $table->integer('rank')->default(0);
             $table->char('status', 1)->default('A');
             $table->timestamps();
             $table->softDeletes();

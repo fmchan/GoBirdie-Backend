@@ -55,7 +55,9 @@ class Category_article extends Model
      */
     public static $rules = [
         'name' => 'required',
-        'photo' => 'image|mimes:jpeg,png,jpg|max:1024'
+        'rank_home' => 'required',
+        'rank_place' => 'required',
+        'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024'
     ];
 
     

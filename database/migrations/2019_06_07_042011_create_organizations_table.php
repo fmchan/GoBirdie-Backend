@@ -16,7 +16,7 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('rank');
+            $table->integer('rank')->default(0);
             $table->char('status', 1)->default('A');
             $table->timestamps();
             $table->softDeletes();

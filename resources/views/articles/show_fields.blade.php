@@ -1,9 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $article->id !!}</p>
-</div>
-
 <!-- Title Field -->
 <div class="form-group">
     {!! Form::label('title', 'Title:') !!}
@@ -13,13 +7,13 @@
 <!-- Start Field -->
 <div class="form-group">
     {!! Form::label('start', 'Start:') !!}
-    <p>{!! $article->start !!}</p>
+    <p>{!! $article->start->format('d/m/Y') !!}</p>
 </div>
 
 <!-- End Field -->
 <div class="form-group">
     {!! Form::label('end', 'End:') !!}
-    <p>{!! $article->end !!}</p>
+    <p>{!! $article->end->format('d/m/Y') !!}</p>
 </div>
 
 <!-- City Field -->
@@ -44,11 +38,12 @@
     @endif
 </div>
 
-<!-- Heart Field -->
+<!-- 
 <div class="form-group">
     {!! Form::label('heart', 'Heart:') !!}
     <p>{!! $article->heart !!}</p>
 </div>
+-->
 
 <!-- Bookmark Field -->
 <div class="form-group">
@@ -89,7 +84,7 @@
 <!-- Book Field -->
 <div class="form-group">
     {!! Form::label('book', 'Book:') !!}
-    <p>{!! $article->book !!}</p>
+    <p>{!! $article->book ? "true" : "false" !!}</p>
 </div>
 
 <!-- Opening Field -->

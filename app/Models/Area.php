@@ -48,7 +48,8 @@ class Area extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required'
+        'name' => 'required',
+        'rank' => 'required'
     ];
 
     
