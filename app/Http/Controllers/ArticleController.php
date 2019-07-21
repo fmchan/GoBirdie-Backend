@@ -24,6 +24,7 @@ class ArticleController extends GenericController
         $data['categories'] = Category_article::where('status','A')->pluck('name','id')->all();
         return $data;
     }
+
     /**
      * Store a newly created Article in storage.
      *

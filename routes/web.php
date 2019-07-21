@@ -36,6 +36,11 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::post('/articles/{id}/delete', 'ArticleController@deleteImage')->name('articles.delete');
 	Route::post('/places/{id}/delete', 'PlaceController@deleteImage')->name('places.delete');
+
+	Route::get('imports', 'ImportController@imports')->name('imports.index');
+	Route::post('upload-images', 'ImportController@uploadImages')->name('imports.uploadImages');
+	Route::post('delete-image', 'ImportController@deleteImage')->name('imports.deleteImage');
+	Route::post('imports', 'ImportController@importExcel');
 });
 
 Route::get('/home', 'HomeController@index');

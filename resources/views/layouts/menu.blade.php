@@ -56,3 +56,7 @@
 <li class="{{ Request::is('places*') ? 'active' : '' }}">
     <a href="{!! route('places.index') !!}"><i class="fa fa-edit"></i><span>Places</span></a>
 </li>
+
+<li class="{{ Request::is('imports*') ? 'active' : '' }}">
+    <a href="{!! route('imports.index') !!}"><i class="fa fa-edit"></i><span>Importer</span></a>
+</li>
