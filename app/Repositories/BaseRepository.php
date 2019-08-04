@@ -91,6 +91,8 @@ abstract class BaseRepository
             foreach($search as $key => $value) {
                 if (in_array($key, $this->getFieldsSearchable())) {
                     $query->where($key, $value);
+                } elseif (isset($this->fieldInSet) && in_array($key, $this->fieldInSet)) {
+                    $query->whereRaw('FIND_IN_SET('.$value.','.$key.')');
                 }
             }
         }
@@ -119,6 +121,16 @@ abstract class BaseRepository
     public function all($search = [], $skip = null, $limit = null, $columns = ['*'])
     {
         $query = $this->allQuery($search, $skip, $limit);
+
+        return $query->get($columns);
+    }
+
+    public function all2($search = [], $skip = null, $limit = null, $columns = ['*'], $orderBy = [])
+    {
+        $query = $this->allQuery($search, $skip, $limit);
+        if ($orderBy != null)
+            foreach($orderBy as $k=>$o)
+                $query->orderBy($k, $o);
 
         return $query->get($columns);
     }

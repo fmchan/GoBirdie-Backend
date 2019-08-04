@@ -57,7 +57,7 @@ class Category_article extends Model
         'name' => 'required',
         'rank_home' => 'required',
         'rank_place' => 'required',
-        'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024'
+        //'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024'
     ];
 
     

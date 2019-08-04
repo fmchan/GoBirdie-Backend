@@ -20,35 +20,35 @@ class PlaceRepository extends BaseRepository
         'title',
         'city',
         'district',
-        'categories',
-        'organization',
         'heart',
         'bookmark',
         'address',
-        'lat',
-        'long',
+        'gps',
         'transport_short',
         'transport_long',
         'telephone',
-        'age_start',
-        'age_end',
         'book',
         'opening',
-        'opening_select',
         'fee',
-        'fee_number',
-        'area',
-        'tags_public',
-        'tags_private',
         'email',
         'website',
         'content',
+        'rank',
+        'status',
+        'organization',
+        //'fee_number',
+    ];
+
+    public $fieldInSet = [
+        'categories',
+        'tags_public',
+        'tags_private',
         'facilities',
         'photos',
         'related_articles',
         'related_places',
-        'rank',
-        'status'
+        'opening_hours',
+        'areas',
     ];
 
     /**
@@ -67,5 +67,18 @@ class PlaceRepository extends BaseRepository
     public function model()
     {
         return Place::class;
+    }
+
+    public function allQuery($search = [], $skip = null, $limit = null)
+    {
+        $query = parent::allQuery($search, $skip, $limit);
+        if (array_key_exists('age_start', $search) && array_key_exists('age_end', $search)) {
+            $query->where('age_start','<=',$search['age_end'])
+                  ->where('age_end','>=',$search['age_start']);
+        }
+        if (array_key_exists('fee_start', $search) && array_key_exists('fee_end', $search)) {
+            $query->whereBetween('fee_number', [$search['fee_start'],$search['fee_end']]);
+        }
+        return $query;
     }
 }

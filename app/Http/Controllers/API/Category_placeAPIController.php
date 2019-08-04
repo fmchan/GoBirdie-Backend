@@ -34,10 +34,13 @@ class Category_placeAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $categoryPlaces = $this->categoryPlaceRepository->all(
+        $request->request->add(['status' => 'A']);
+        $categoryPlaces = $this->categoryPlaceRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            array('id', 'name'),
+            ['rank'=>'desc', 'id'=>'desc']
         );
 
         return $this->sendResponse($categoryPlaces->toArray(), 'Category Places retrieved successfully');

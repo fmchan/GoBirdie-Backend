@@ -34,11 +34,15 @@ class ArticleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $articles = $this->articleRepository->all(
+        $request->request->add(['status' => 'A']);
+        $articles = $this->articleRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','title','heart','photos','created_at'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
+        $articles['image_path'] = url('uploads/article_images');
 
         return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
     }

@@ -22,30 +22,32 @@ class ArticleRepository extends BaseRepository
         'end',
         'city',
         'district',
-        'categories',
         'heart',
         'bookmark',
         'address',
-        'lat',
-        'long',
+        'gps',
         'transport_short',
         'transport_long',
         'telephone',
         'book',
         'opening',
         'fee',
-        'tags_public',
-        'tags_private',
         'email',
         'website',
         'content',
+        'rank',
+        'status'
+    ];
+
+    protected $fieldInSet = [
+        'categories',
+        'tags_public',
+        'tags_private',
         'facilities',
         'photos',
         'related_articles',
         'related_places',
-        'rank',
-        'status'
-    ];
+    ]
 
     /**
      * Return searchable fields
@@ -55,6 +57,10 @@ class ArticleRepository extends BaseRepository
     public function getFieldsSearchable()
     {
         return $this->fieldSearchable;
+    }
+    public function getFieldsInSet()
+    {
+        return $this->fieldInSet;
     }
 
     /**

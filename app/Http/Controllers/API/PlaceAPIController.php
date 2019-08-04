@@ -34,11 +34,21 @@ class PlaceAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $places = $this->placeRepository->all(
+        /*
+            range: age,fee_number
+            match: organization,district
+            array: areas,opening_hours,facilities
+            boolean: book
+        */
+        $request->request->add(['status' => 'A']);
+        $places = $this->placeRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','title','categories','photos','facilities','address','telephone'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
+        $articles['image_path'] = url('uploads/place_images');
 
         return $this->sendResponse($places->toArray(), 'Places retrieved successfully');
     }
