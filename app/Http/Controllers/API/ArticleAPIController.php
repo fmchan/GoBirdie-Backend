@@ -39,12 +39,23 @@ class ArticleAPIController extends AppBaseController
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit'),
-            ['id','title','heart','photos','created_at'],
+            ['id','title','heart','photos','display'],
             ['rank'=>'desc', 'id'=>'desc']
         );
         $articles['image_path'] = url('uploads/article_images');
 
         return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
+    }
+
+    public function addHeart($id, Request $request) {
+        $article = $this->articleRepository->find($id);
+        if (empty($article)) {
+            return $this->sendError('Article not found');
+        }
+        $input['heart'] = $article->heart + 1;
+        $article = $this->articleRepository->update($input, $id);
+
+        return $this->sendResponse($article->heart, 'heart added!');
     }
 
     /**

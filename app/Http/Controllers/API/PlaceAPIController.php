@@ -25,6 +25,17 @@ class PlaceAPIController extends AppBaseController
         $this->placeRepository = $placeRepo;
     }
 
+    public function addHeart($id, Request $request) {
+        $place = $this->placeRepository->find($id);
+        if (empty($place)) {
+            return $this->sendError('Place not found');
+        }
+        $input['heart'] = $place->heart + 1;
+        $place = $this->placeRepository->update($input, $id);
+
+        return $this->sendResponse($place->heart, 'heart added!');
+    }
+
     /**
      * Display a listing of the Place.
      * GET|HEAD /places

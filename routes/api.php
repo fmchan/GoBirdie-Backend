@@ -17,7 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::resource('tags', 'TagAPIController');
 
 Route::resource('category_articles', 'Category_articleAPIController');
@@ -39,3 +38,6 @@ Route::resource('places', 'PlaceAPIController');
 Route::resource('areas', 'AreaAPIController');
 
 Route::resource('hours', 'HourAPIController');
+
+Route::post('/articles/{id}/heart', 'ArticleAPIController@addHeart')->name('articles.heart');
+Route::post('/places/{id}/heart', 'PlaceAPIController@addHeart')->name('places.heart');
