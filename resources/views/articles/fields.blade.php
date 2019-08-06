@@ -19,7 +19,8 @@
     {!! Form::label('end', 'End Date:') !!}
     {!! Form::date('end', isset($article) ? $article->end->format('Y-m-d') : null, ['class' => 'form-control','id'=>'end']) !!}
 </div>
-<div class="form-group col-sm-6">
+
+<div class="form-group col-sm-12">
     {!! Form::label('display', 'Display Date:') !!}
     {!! Form::date('display', isset($article) ? $article->display->format('Y-m-d') : null, ['class' => 'form-control','id'=>'display']) !!}
 </div>

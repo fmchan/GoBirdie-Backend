@@ -91,6 +91,7 @@ class GenericModel extends Model
         'district' => 'required',
         'categories' => 'required',
         'address' => 'required',
+        'content' => 'required',
         'gps' => 'required',
         'book' => 'required',
         'rank' => 'required',

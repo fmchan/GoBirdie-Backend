@@ -37,7 +37,7 @@ class ArticleRepository extends BaseRepository
         'website',
         'content',
         'rank',
-        'status'
+        'status',
     ];
 
     protected $fieldInSet = [
@@ -48,7 +48,7 @@ class ArticleRepository extends BaseRepository
         'photos',
         'related_articles',
         'related_places',
-    ]
+    ];
 
     /**
      * Return searchable fields
