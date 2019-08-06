@@ -45,15 +45,18 @@ class Article extends GenericModel
 
         $fillable = [
             'start',
-            'end'
+            'end',
+            'display'
         ];
         $casts = [
             'start' => 'date',
-            'end' => 'date'
+            'end' => 'date',
+            'display' => 'date'
         ];
         $rules = [
             'start' => 'required',
-            'end' => 'required'
+            'end' => 'required',
+            'display' => 'required'
         ];
         $this->fillable = array_merge($this->fillable, $fillable);
         $this->casts = array_merge($this->casts, $casts);

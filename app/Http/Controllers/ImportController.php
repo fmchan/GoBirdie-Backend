@@ -91,6 +91,7 @@ class ImportController extends AppBaseController
                     if ($type == 'article') {
 	                     $a['start']  = $row['start'];
 	                     $a['end']  = $row['end'];
+                         $a['display']  = $row['display'];
                     } else {
 	                     $a['organization']  = $row['organization'];
 	                     $a['age_start']  = $row['age_start'];
@@ -126,6 +127,7 @@ class ImportController extends AppBaseController
             if ($type == 'article') {
                 $v["*.start"] = "required|date";
                 $v["*.end"] = "required|date";
+                $v["*.display"] = "required|date";
                 $v["*.category.*"]   = "exists:category_articles,id";
             } else {
                 $v["*.organization"] = "exists:organizations,id";

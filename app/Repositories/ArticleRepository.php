@@ -20,6 +20,7 @@ class ArticleRepository extends BaseRepository
         'title',
         'start',
         'end',
+        'display',
         'city',
         'district',
         'heart',

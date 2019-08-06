@@ -16,6 +16,11 @@
     <p>{!! $article->end->format('d/m/Y') !!}</p>
 </div>
 
+<div class="form-group">
+    {!! Form::label('display', 'Display:') !!}
+    <p>{!! $article->display->format('d/m/Y') !!}</p>
+</div>
+
 <!-- City Field -->
 <div class="form-group">
     {!! Form::label('city', 'City:') !!}

@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->date('start');
             $table->date('end');
+            $table->date('display');
             $table->integer('city')->unsigned();
             $table->integer('district')->unsigned();
             $table->string('categories');
