@@ -53,8 +53,8 @@
         <input type="file" name="import_file" />
                 </div>
                  <div class="form-group col-sm-12">
-        <input type="radio" name="type" value="article" checked> Article
-        <input type="radio" name="type" value="place"> Place
+        <input type="radio" name="type" value="article" checked> 情報
+        <input type="radio" name="type" value="place"> 好去處
     </div>
     <div class="form-group col-sm-12">
         <input class="btn btn-primary" type="submit" value="Import Excel File" form="importFile">

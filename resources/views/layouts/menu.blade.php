@@ -18,11 +18,11 @@
 </li>
 
 <li class="{{ Request::is('categoryArticles*') ? 'active' : '' }}">
-    <a href="{!! route('categoryArticles.index') !!}"><i class="fa fa-edit"></i><span>Category Articles</span></a>
+    <a href="{!! route('categoryArticles.index') !!}"><i class="fa fa-edit"></i><span>Category (情報)</span></a>
 </li>
 
 <li class="{{ Request::is('categoryPlaces*') ? 'active' : '' }}">
-    <a href="{!! route('categoryPlaces.index') !!}"><i class="fa fa-edit"></i><span>Category Places</span></a>
+    <a href="{!! route('categoryPlaces.index') !!}"><i class="fa fa-edit"></i><span>Category (好去處)</span></a>
 </li>
 
 <li class="{{ Request::is('facilities*') ? 'active' : '' }}">
@@ -50,11 +50,11 @@
 </li>
 
 <li class="{{ Request::is('articles*') ? 'active' : '' }}">
-    <a href="{!! route('articles.index') !!}"><i class="fa fa-edit"></i><span>Articles</span></a>
+    <a href="{!! route('articles.index') !!}"><i class="fa fa-edit"></i><span>情報</span></a>
 </li>
 
 <li class="{{ Request::is('places*') ? 'active' : '' }}">
-    <a href="{!! route('places.index') !!}"><i class="fa fa-edit"></i><span>Places</span></a>
+    <a href="{!! route('places.index') !!}"><i class="fa fa-edit"></i><span>好去處</span></a>
 </li>
 
 <li class="{{ Request::is('imports*') ? 'active' : '' }}">
