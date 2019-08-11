@@ -35,19 +35,6 @@ class Category_articleController extends AppBaseController
             ->with('categoryArticles', $categoryArticles);
     }
 
-    private function uploadImage(Request $request) {
-        $input = $request->all();
-        if ($request->hasFile('photo')) {
-            $image = $request->file('photo');
-            $name = md5(uniqid() . time()) . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('uploads/icons');
-            $image->move($destinationPath, $name);
-            $input['icon'] = $name;
-            //$cat->save();
-        }
-        return $input;
-    }
-
     /**
      * Show the form for creating a new Category_article.
      *
@@ -68,7 +55,7 @@ class Category_articleController extends AppBaseController
     public function store(CreateCategory_articleRequest $request)
     {
         //$input = $request->all();
-        $categoryArticle = $this->categoryArticleRepository->create($this->uploadImage($request));
+        $categoryArticle = $this->categoryArticleRepository->create($request->all());
 
         Flash::success('Category Article saved successfully.');
 
@@ -133,7 +120,7 @@ class Category_articleController extends AppBaseController
             return redirect(route('categoryArticles.index'));
         }
 
-        $categoryArticle = $this->categoryArticleRepository->update($this->uploadImage($request), $id);
+        $categoryArticle = $this->categoryArticleRepository->update($request->all(), $id);
 
         Flash::success('Category Article updated successfully.');
 

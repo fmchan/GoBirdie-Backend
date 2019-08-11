@@ -20,6 +20,19 @@ class Category_placeController extends AppBaseController
         $this->categoryPlaceRepository = $categoryPlaceRepo;
     }
 
+    private function uploadImage(Request $request) {
+        $input = $request->all();
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $name = md5(uniqid() . time()) . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('uploads/icons');
+            $image->move($destinationPath, $name);
+            $input['icon'] = $name;
+            //$cat->save();
+        }
+        return $input;
+    }
+
     /**
      * Display a listing of the Category_place.
      *
@@ -54,9 +67,7 @@ class Category_placeController extends AppBaseController
      */
     public function store(CreateCategory_placeRequest $request)
     {
-        $input = $request->all();
-
-        $categoryPlace = $this->categoryPlaceRepository->create($input);
+        $categoryPlace = $this->categoryPlaceRepository->create($this->uploadImage($request));
 
         Flash::success('Category Place saved successfully.');
 
@@ -121,7 +132,7 @@ class Category_placeController extends AppBaseController
             return redirect(route('categoryPlaces.index'));
         }
 
-        $categoryPlace = $this->categoryPlaceRepository->update($request->all(), $id);
+        $categoryPlace = $this->categoryPlaceRepository->update($this->uploadImage($request), $id);
 
         Flash::success('Category Place updated successfully.');
 

@@ -34,21 +34,17 @@ class Category_articleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $rank = $request->input('rank'); // h,p
-        $rank_field = ($rank != null && $rank == "h")? "rank_home": "rank_place";
         $request->request->add(['status' => 'A']);
         $categoryArticles = $this->categoryArticleRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit'),
-            array('id', 'name', 'icon'),
-            [$rank_field=>'desc', 'id'=>'desc']
+            array('id', 'name'),
+            ['rank'=>'desc', 'id'=>'desc']
         );
-        $categoryArticles['image_path'] = url('uploads/icons');
 
-        return $this->sendResponse($categoryArticles->toArray(), 'Category Articles retrieved successfully');
+        return $this->sendResponse($categoryArticles->toArray(), 'Category Places retrieved successfully');
     }
-
     /**
      * Store a newly created Category_article in storage.
      * POST /categoryArticles

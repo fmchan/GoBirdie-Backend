@@ -18,9 +18,7 @@ class Category_articleRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'name',
-        'icon',
-        'rank_home',
-        'rank_place',
+        'rank',
         'status'
     ];
 

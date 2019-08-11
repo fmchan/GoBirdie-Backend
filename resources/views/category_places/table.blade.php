@@ -3,7 +3,9 @@
         <thead>
             <tr>
                 <th>Name</th>
-        <th>Rank</th>
+        <th>Icon</th>
+        <th>Rank Home</th>
+        <th>Rank Place</th>
         <th>Status</th>
                 <th colspan="3">Action</th>
             </tr>
@@ -12,7 +14,9 @@
         @foreach($categoryPlaces as $categoryPlace)
             <tr>
                 <td>{!! $categoryPlace->name !!}</td>
-            <td>{!! $categoryPlace->rank !!}</td>
+            <td><img src="{{ asset('/uploads/icons/'.$categoryPlace->icon) }}"/></td>
+            <td>{!! $categoryPlace->rank_home !!}</td>
+            <td>{!! $categoryPlace->rank_place !!}</td>
             <td>{!! $categoryPlace->status !!}</td>
                 <td>
                     {!! Form::open(['route' => ['categoryPlaces.destroy', $categoryPlace->id], 'method' => 'delete']) !!}

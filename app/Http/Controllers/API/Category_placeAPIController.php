@@ -34,16 +34,19 @@ class Category_placeAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $rank = $request->input('rank'); // h,p
+        $rank_field = ($rank != null && $rank == "h")? "rank_home": "rank_place";
         $request->request->add(['status' => 'A']);
         $categoryPlaces = $this->categoryPlaceRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit'),
-            array('id', 'name'),
-            ['rank'=>'desc', 'id'=>'desc']
+            array('id', 'name', 'icon'),
+            [$rank_field=>'desc', 'id'=>'desc']
         );
-
-        return $this->sendResponse($categoryPlaces->toArray(), 'Category Places retrieved successfully');
+        //$categoryPlaces['image_path'] = url('uploads/icons');
+        return response(['data'=>$categoryPlaces->toArray(), 'image_path'=>url('uploads/article_images')], 200);
+        //return $this->sendResponse(['data'=>$categoryPlaces->toArray(), 'image_path'=>url('uploads/icons')], 'Category Articles retrieved successfully');
     }
 
     /**

@@ -9,11 +9,22 @@
     {!! Form::label('name', 'Name:') !!}
     <p>{!! $categoryPlace->name !!}</p>
 </div>
-
-<!-- Rank Field -->
+<!-- Icon Field -->
 <div class="form-group">
-    {!! Form::label('rank', 'Rank:') !!}
-    <p>{!! $categoryPlace->rank !!}</p>
+    {!! Form::label('icon', 'Icon:') !!}
+    <p>{!! $categoryPlace->icon !!}</p>
+</div>
+
+<!-- Rank Home Field -->
+<div class="form-group">
+    {!! Form::label('rank_home', 'Rank Home:') !!}
+    <p>{!! $categoryPlace->rank_home !!}</p>
+</div>
+
+<!-- Rank Place Field -->
+<div class="form-group">
+    {!! Form::label('rank_place', 'Rank Place:') !!}
+    <p>{!! $categoryPlace->rank_place !!}</p>
 </div>
 
 <!-- Status Field -->

@@ -42,9 +42,8 @@ class ArticleAPIController extends AppBaseController
             ['id','title','heart','photos','display'],
             ['rank'=>'desc', 'id'=>'desc']
         );
-        $articles['image_path'] = url('uploads/article_images');
-
-        return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
+        return response(['data'=>$articles->toArray(), 'image_path'=>url('uploads/article_images')], 200);
+        //return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
     }
 
     public function addHeart($id, Request $request) {

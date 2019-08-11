@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($categoryPlace, ['route' => ['categoryPlaces.update', $categoryPlace->id], 'method' => 'patch']) !!}
+                   {!! Form::model($categoryPlace, ['route' => ['categoryPlaces.update', $categoryPlace->id], 'files' => true, 'method' => 'patch']) !!}
 
                         @include('category_places.fields')
 

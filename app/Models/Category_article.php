@@ -28,9 +28,7 @@ class Category_article extends Model
 
     public $fillable = [
         'name',
-        'icon',
-        'rank_home',
-        'rank_place',
+        'rank',
         'status'
     ];
 
@@ -42,9 +40,7 @@ class Category_article extends Model
     protected $casts = [
         'id' => 'integer',
         'name' => 'string',
-        'icon' => 'string',
-        'rank_home' => 'integer',
-        'rank_place' => 'integer',
+        'rank' => 'integer',
         'status' => 'string'
     ];
 
@@ -55,8 +51,7 @@ class Category_article extends Model
      */
     public static $rules = [
         'name' => 'required',
-        'rank_home' => 'required',
-        'rank_place' => 'required',
+        'rank' => 'required'
         //'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024'
     ];
 

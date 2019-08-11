@@ -16,7 +16,9 @@ class CreateCategoryPlacesTable extends Migration
         Schema::create('category_places', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('rank')->default(0);
+            $table->string('icon');
+            $table->integer('rank_home')->default(0);
+            $table->integer('rank_place')->default(0);
             $table->char('status', 1)->default('A');
             $table->timestamps();
             $table->softDeletes();
