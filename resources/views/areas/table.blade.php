@@ -2,6 +2,7 @@
     <table class="table" id="areas-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
         <th>Rank</th>
         <th>Status</th>
@@ -11,6 +12,7 @@
         <tbody>
         @foreach($areas as $area)
             <tr>
+                 <td>{!! $area->id !!}</td>
                 <td>{!! $area->name !!}</td>
             <td>{!! $area->rank !!}</td>
             <td>{!! $area->status !!}</td>

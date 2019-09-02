@@ -2,6 +2,7 @@
     <table class="table" id="hours-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
         <th>Rank</th>
         <th>Status</th>
@@ -11,6 +12,7 @@
         <tbody>
         @foreach($hours as $hour)
             <tr>
+                <td>{!! $hour->id !!}</td>
                 <td>{!! $hour->name !!}</td>
             <td>{!! $hour->rank !!}</td>
             <td>{!! $hour->status !!}</td>

@@ -2,6 +2,7 @@
     <table class="table" id="districts-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
         <th>City</th>
         <th>Rank</th>
@@ -12,6 +13,7 @@
         <tbody>
         @foreach($districts as $district)
             <tr>
+                <td>{!! $district->id !!}</td>
                 <td>{!! $district->name !!}</td>
             <td>{!! $district->cityObj->name !!}</td>
             <td>{!! $district->rank !!}</td>

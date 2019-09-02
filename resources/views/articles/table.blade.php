@@ -2,6 +2,7 @@
     <table class="table" id="articles-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Title</th>
                 <th>Start</th>
                 <th>End</th>
@@ -17,6 +18,7 @@
         <tbody>
         @foreach($articles as $article)
             <tr>
+                <td>{!! $article->id !!}</td>
                 <td>{!! $article->title !!}</td>
             <td>{!! $article->start->format('d/m/Y') !!}</td>
             <td>{!! $article->end->format('d/m/Y') !!}</td>

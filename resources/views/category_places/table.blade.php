@@ -2,6 +2,7 @@
     <table class="table" id="categoryPlaces-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
         <th>Icon</th>
         <th>Rank Home</th>
@@ -13,6 +14,7 @@
         <tbody>
         @foreach($categoryPlaces as $categoryPlace)
             <tr>
+                <td>{!! $categoryPlace->id !!}</td>
                 <td>{!! $categoryPlace->name !!}</td>
             <td><img src="{{ asset('/uploads/icons/'.$categoryPlace->icon) }}"/></td>
             <td>{!! $categoryPlace->rank_home !!}</td>

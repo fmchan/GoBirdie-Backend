@@ -2,6 +2,7 @@
     <table class="table" id="categoryArticles-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
         <th>Rank</th>
         <th>Status</th>
@@ -11,6 +12,7 @@
         <tbody>
         @foreach($categoryArticles as $categoryArticle)
             <tr>
+                <td>{!! $categoryArticle->id !!}</td>
                 <td>{!! $categoryArticle->name !!}</td>
             <td>{!! $categoryArticle->rank !!}</td>
             <td>{!! $categoryArticle->status !!}</td>

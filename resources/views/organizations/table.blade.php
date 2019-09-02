@@ -2,6 +2,7 @@
     <table class="table" id="organizations-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
         <th>Rank</th>
         <th>Status</th>
@@ -11,6 +12,7 @@
         <tbody>
         @foreach($organizations as $organization)
             <tr>
+                <td>{!! $organization->id !!}</td>
                 <td>{!! $organization->name !!}</td>
             <td>{!! $organization->rank !!}</td>
             <td>{!! $organization->status !!}</td>

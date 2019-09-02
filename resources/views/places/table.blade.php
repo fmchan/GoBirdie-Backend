@@ -2,6 +2,7 @@
     <table class="table" id="places-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Title</th>
                 <th>Organization</th>
                 <th>District</th>
@@ -16,6 +17,7 @@
         <tbody>
         @foreach($places as $place)
             <tr>
+                <td>{!! $place->id !!}</td>
                 <td>{!! $place->title !!}</td>
                 <td>{!! $place->organizationObj->name !!}</td>
             <td>{!! $place->districtObj->name !!}</td>

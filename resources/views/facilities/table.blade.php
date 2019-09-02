@@ -2,6 +2,7 @@
     <table class="table" id="facilities-table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
         <th>Icon</th>
         <th>Rank</th>
@@ -12,6 +13,7 @@
         <tbody>
         @foreach($facilities as $facility)
             <tr>
+                <td>{!! $facility->id !!}</td>
                 <td>{!! $facility->name !!}</td>
             <td><img src="{{ asset('/uploads/facilities/'.$facility->icon) }}"/></td>
             <td>{!! $facility->rank !!}</td>
