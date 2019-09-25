@@ -41,3 +41,17 @@ Route::resource('hours', 'HourAPIController');
 
 Route::post('/articles/{id}/heart', 'ArticleAPIController@addHeart')->name('articles.heart');
 Route::post('/places/{id}/heart', 'PlaceAPIController@addHeart')->name('places.heart');
+
+Route::resource('banners', 'BannerAPIController');
+
+Route::resource('highlight_places', 'HighlightPlaceAPIController');
+
+Route::resource('highlight_articles', 'HighlightArticleAPIController');
+
+Route::resource('recommend_places', 'RecommendPlaceAPIController');
+
+Route::resource('hot_keyword_places', 'HotKeywordPlaceAPIController');
+
+Route::resource('hot_keyword_articles', 'HotKeywordArticleAPIController');
+
+Route::resource('pages', 'PageAPIController');

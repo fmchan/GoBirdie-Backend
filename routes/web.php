@@ -44,3 +44,17 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 Route::get('/home', 'HomeController@index');
+
+Route::resource('banners', 'BannerController');
+
+Route::resource('highlightPlaces', 'HighlightPlaceController');
+
+Route::resource('highlightArticles', 'HighlightArticleController');
+
+Route::resource('recommendPlaces', 'RecommendPlaceController');
+
+Route::resource('hotKeywordPlaces', 'HotKeywordPlaceController');
+
+Route::resource('hotKeywordArticles', 'HotKeywordArticleController');
+
+Route::resource('pages', 'PageController');

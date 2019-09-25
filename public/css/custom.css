@@ -1,3 +1,10 @@
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header {
 	height: auto;
 }
+h4 {
+    margin-left: 10px;
+    color: white;
+}
+.wrapper {
+	position: initial;
+}
