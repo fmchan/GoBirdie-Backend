@@ -34,13 +34,30 @@ class HighlightPlaceAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $highlightPlaces = $this->highlightPlaceRepository->all(
+        $request->request->add(['status' => 'A']);
+        $highlightPlaces = $this->highlightPlaceRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','place_id'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
+        $data = array();
+        foreach($highlightPlaces as $a) {
+            $i['id'] = $a->id;
+            $i['place_id'] = $a->place_id;
+            $i['title'] = $a->place->title;
+            $i['categories'] = $a->place->categories;
+            $i['photos'] = $a->place->photos;
+            $i['facilities'] = $a->place->facilities;
+            $i['address'] = $a->place->address;
+            $i['telephone'] = $a->place->telephone;
+            array_push($data, $i);
+            //['id','title','categories','photos','facilities','address','telephone'],
+        }
 
-        return $this->sendResponse($highlightPlaces->toArray(), 'Highlight Places retrieved successfully');
+        return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
+        //return $this->sendResponse($highlightPlaces->toArray(), 'Highlight Places retrieved successfully');
     }
 
     /**

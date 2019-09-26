@@ -9,6 +9,7 @@ use App\Repositories\BannerRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Carbon\Carbon;
 
 /**
  * Class BannerController
@@ -34,13 +35,15 @@ class BannerAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $banners = $this->bannerRepository->all(
+        $request->request->add(['status' => 'A', 'dateInRange' => Carbon::now()]);
+        $banners = $this->bannerRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','title','photo','type','link'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
-
-        return $this->sendResponse($banners->toArray(), 'Banners retrieved successfully');
+        return response(['data'=>$banners->toArray(), 'image_path'=>url('uploads/banners')], 200);
     }
 
     /**

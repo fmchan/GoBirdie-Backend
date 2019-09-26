@@ -34,13 +34,29 @@ class HighlightArticleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $highlightArticles = $this->highlightArticleRepository->all(
+        $request->request->add(['status' => 'A']);
+        $highlightArticles = $this->highlightArticleRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','article_id'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
+        $data = array();
+        foreach($highlightArticles as $a) {
+            $i['id'] = $a->id;
+            $i['article_id'] = $a->article_id;
+            $i['title'] = $a->article->title;
+            $i['heart'] = $a->article->heart;
+            $i['photos'] = $a->article->photos;
+            $i['display'] = $a->article->display;
+            array_push($data, $i);
+            //print_r($a->article);
+            //'title','heart','photos','display'
+        }
 
-        return $this->sendResponse($highlightArticles->toArray(), 'Highlight Articles retrieved successfully');
+        return response(['data'=>$data, 'image_path'=>url('uploads/article_images')], 200);
+        //return $this->sendResponse($highlightArticles->toArray(), 'Highlight Articles retrieved successfully');
     }
 
     /**

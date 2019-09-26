@@ -93,7 +93,12 @@ abstract class BaseRepository
                     $query->where($key, $value);
                 } elseif (isset($this->fieldInSet) && in_array($key, $this->fieldInSet)) {
                     $query->whereRaw('FIND_IN_SET('.$value.','.$key.')');
-                }
+                } elseif ($key == 'dateInRange')
+                    $query->where(function ($subQ) use ($value) {
+                        $subQ->where('start','<=', $value)->orWhereNull('start');
+                    })->where(function ($subQ) use ($value) {
+                        $subQ->where('end','>=', $value)->orWhereNull('end');
+                    });
             }
         }
 

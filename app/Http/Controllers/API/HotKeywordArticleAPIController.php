@@ -9,6 +9,7 @@ use App\Repositories\HotKeywordArticleRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Carbon\Carbon;
 
 /**
  * Class HotKeywordArticleController
@@ -34,12 +35,14 @@ class HotKeywordArticleAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $hotKeywordArticles = $this->hotKeywordArticleRepository->all(
+        $request->request->add(['status' => 'A', 'dateInRange' => Carbon::now()]);
+        $hotKeywordArticles = $this->hotKeywordArticleRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','keyword'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
-
         return $this->sendResponse($hotKeywordArticles->toArray(), 'Hot Keyword Articles retrieved successfully');
     }
 

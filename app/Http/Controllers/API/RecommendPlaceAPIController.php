@@ -34,13 +34,26 @@ class RecommendPlaceAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $recommendPlaces = $this->recommendPlaceRepository->all(
+        $request->request->add(['status' => 'A']);
+        $recommendPlaces = $this->recommendPlaceRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','place_id'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
+        $data = array();
+        foreach($recommendPlaces as $a) {
+            $i['id'] = $a->id;
+            $i['place_id'] = $a->place_id;
+            $i['title'] = $a->place->title;
+            $i['categories'] = $a->place->categories;
+            $i['photos'] = $a->place->photos;
+            array_push($data, $i);
+        }
 
-        return $this->sendResponse($recommendPlaces->toArray(), 'Recommend Places retrieved successfully');
+        return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
+        //return $this->sendResponse($recommendPlaces->toArray(), 'Recommend Places retrieved successfully');
     }
 
     /**

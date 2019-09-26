@@ -26,7 +26,7 @@ class Banner extends Model
     public $table = 'banners';
     
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'start', 'end'];
 
 
     public $fillable = [

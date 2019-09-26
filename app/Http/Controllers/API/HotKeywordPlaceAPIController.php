@@ -34,12 +34,14 @@ class HotKeywordPlaceAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $hotKeywordPlaces = $this->hotKeywordPlaceRepository->all(
+        $request->request->add(['status' => 'A']);
+        $hotKeywordPlaces = $this->hotKeywordPlaceRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
-            $request->get('limit')
+            $request->get('limit'),
+            ['id','keyword'],
+            ['rank'=>'desc', 'id'=>'desc']
         );
-
         return $this->sendResponse($hotKeywordPlaces->toArray(), 'Hot Keyword Places retrieved successfully');
     }
 

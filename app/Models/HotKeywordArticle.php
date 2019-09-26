@@ -23,7 +23,7 @@ class HotKeywordArticle extends Model
     public $table = 'hot_keyword_articles';
     
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'start', 'end'];
 
 
     public $fillable = [
