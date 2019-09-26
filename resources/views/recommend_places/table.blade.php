@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th>Place Id</th>
+                <th>Type</th>
         <th>Rank</th>
         <th>Status</th>
                 <th colspan="3">Action</th>
@@ -12,6 +13,7 @@
         @foreach($recommendPlaces as $recommendPlace)
             <tr>
                 <td>{!! $recommendPlace->place_id !!}</td>
+                <td>{!! $recommendPlace->type !!}</td>
             <td>{!! $recommendPlace->rank !!}</td>
             <td>{!! $recommendPlace->status !!}</td>
                 <td>

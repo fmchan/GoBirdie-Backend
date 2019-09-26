@@ -18,6 +18,7 @@ class RecommendPlaceRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'place_id',
+        'type',
         'rank',
         'status'
     ];

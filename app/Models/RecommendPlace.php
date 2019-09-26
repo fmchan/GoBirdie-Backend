@@ -27,6 +27,7 @@ class RecommendPlace extends Model
 
     public $fillable = [
         'place_id',
+        'type',
         'rank',
         'status'
     ];
@@ -39,6 +40,7 @@ class RecommendPlace extends Model
     protected $casts = [
         'id' => 'integer',
         'place_id' => 'integer',
+        'type' => 'string',
         'rank' => 'integer',
         'status' => 'string'
     ];

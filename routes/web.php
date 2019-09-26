@@ -41,20 +41,20 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('upload-images', 'ImportController@uploadImages')->name('imports.uploadImages');
 	Route::post('delete-image', 'ImportController@deleteImage')->name('imports.deleteImage');
 	Route::post('imports', 'ImportController@importExcel');
+
+	Route::resource('banners', 'BannerController');
+
+	Route::resource('highlightPlaces', 'HighlightPlaceController');
+
+	Route::resource('highlightArticles', 'HighlightArticleController');
+
+	Route::resource('recommendPlaces', 'RecommendPlaceController');
+
+	Route::resource('hotKeywordPlaces', 'HotKeywordPlaceController');
+
+	Route::resource('hotKeywordArticles', 'HotKeywordArticleController');
+
+	Route::resource('pages', 'PageController');
 });
 
 Route::get('/home', 'HomeController@index');
-
-Route::resource('banners', 'BannerController');
-
-Route::resource('highlightPlaces', 'HighlightPlaceController');
-
-Route::resource('highlightArticles', 'HighlightArticleController');
-
-Route::resource('recommendPlaces', 'RecommendPlaceController');
-
-Route::resource('hotKeywordPlaces', 'HotKeywordPlaceController');
-
-Route::resource('hotKeywordArticles', 'HotKeywordArticleController');
-
-Route::resource('pages', 'PageController');

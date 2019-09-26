@@ -10,6 +10,11 @@
     <p>{!! $recommendPlace->place_id !!}</p>
 </div>
 
+<div class="form-group">
+    {!! Form::label('type', 'Type:') !!}
+    <p>{!! $recommendPlace->type !!}</p>
+</div>
+
 <!-- Rank Field -->
 <div class="form-group">
     {!! Form::label('rank', 'Rank:') !!}

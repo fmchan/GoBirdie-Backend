@@ -3,7 +3,10 @@
     {!! Form::label('place_id', 'Place Id:') !!}
     {!! Form::text('place_id', null, ['class' => 'form-control']) !!}
 </div>
-
+<div class="form-group col-sm-6">
+    {!! Form::label('type', 'Type:') !!}
+    {!! Form::select('type', ['P' => 'Place', 'A' => 'Article'], null, ['class' => 'form-control']) !!}
+</div>
 <!-- Rank Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('rank', 'Rank:') !!}

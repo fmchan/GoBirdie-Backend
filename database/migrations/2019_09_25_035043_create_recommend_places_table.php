@@ -18,6 +18,7 @@ class CreateRecommendPlacesTable extends Migration
             $table->integer('place_id')->unsigned();
             $table->integer('rank')->default(0);
             $table->char('status', 1)->default('A');
+            $table->char('type', 1)->default('P'); //Place:P,Article:A
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('place_id')->references('id')->on('places');
