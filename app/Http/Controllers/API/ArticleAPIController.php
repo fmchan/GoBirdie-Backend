@@ -42,6 +42,12 @@ class ArticleAPIController extends AppBaseController
             ['id','title','heart','photos','display'],
             ['rank'=>'desc', 'id'=>'desc']
         );
+        foreach($articles as $a) {
+            $a->date = $a->display->format('Y-m-d');
+            $a->photo = $a->getPhoto(0);
+            unset($a->display);
+            unset($a->photos);
+        }
         return response(['data'=>$articles->toArray(), 'image_path'=>url('uploads/article_images')], 200);
         //return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
     }

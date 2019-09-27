@@ -114,6 +114,11 @@ class GenericModel extends Model
         return $this->belongsTo(\App\Models\District::class, 'district');
     }
 
+    public function getPhoto($i) {
+        $ps = $this->getPhotos();
+        return $ps[$i];
+    }
+
     public function getPhotos() {
         if (empty($this->photos)) return null;
         return explode(",", $this->photos);
