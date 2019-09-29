@@ -99,17 +99,17 @@ class ArticleAPIController extends AppBaseController
             return $this->sendError('Article not found');
         }
 
-        $article->date = $a->display->format('Y-m-d');
+        $article->date = $article->display->format('Y-m-d');
         $article->slides = $article->getPhotos();
         $article->icons = $facilityRepo->find(explode(",", $article->facilities), ['id','name','icon']);
         $article->tags = $tagRepo->find(explode(",", $article->tags_public), ['id','name']);
 
-        unset($a->display);
+        unset($article->display);
         unset($article->photos);
         unset($article->facilities);
         unset($article->tags_public);
 
-        return response(['data'=>$articles->toArray(), 'image_path'=>url('uploads/article_images')], 200);
+        return response(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200);
         //return $this->sendResponse($article->toArray(), 'Article retrieved successfully');
     }
 
