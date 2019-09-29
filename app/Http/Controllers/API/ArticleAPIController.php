@@ -6,6 +6,8 @@ use App\Http\Requests\API\CreateArticleAPIRequest;
 use App\Http\Requests\API\UpdateArticleAPIRequest;
 use App\Models\Article;
 use App\Repositories\ArticleRepository;
+use App\Repositories\FacilityRepository;
+use App\Repositories\TagRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -88,14 +90,22 @@ class ArticleAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show($id, FacilityRepository $facilityRepo, TagRepository $tagRepo)
     {
         /** @var Article $article */
-        $article = $this->articleRepository->find($id);
+        $article = $this->articleRepository->find($id, ['address','book','content','email','fee','gps','opening','telephone','transport_long','transport_short','website','photos','tags_public','facilities']);
 
         if (empty($article)) {
             return $this->sendError('Article not found');
         }
+
+        $article->slides = $article->getPhotos();
+        $article->icons = $facilityRepo->find(explode(",", $article->facilities), ['id','name','icon']);
+        $article->tags = $tagRepo->find(explode(",", $article->tags_public), ['id','name']);
+
+        unset($article->photos);
+        unset($article->facilities);
+        unset($article->tags_public);
 
         return $this->sendResponse($article->toArray(), 'Article retrieved successfully');
     }
