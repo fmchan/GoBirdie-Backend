@@ -48,8 +48,8 @@ class HighlightArticleAPIController extends AppBaseController
             $i['article_id'] = $a->article_id;
             $i['title'] = $a->article->title;
             $i['heart'] = $a->article->heart;
-            $i['photos'] = $a->article->photos;
-            $i['display'] = $a->article->display;
+            $i['photo'] = $a->article->getPhoto(0);
+            $i['date'] = $a->article->display->format('Y-m-d');
             array_push($data, $i);
             //print_r($a->article);
             //'title','heart','photos','display'
