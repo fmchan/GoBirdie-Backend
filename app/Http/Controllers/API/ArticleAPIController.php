@@ -50,7 +50,7 @@ class ArticleAPIController extends AppBaseController
             unset($a->display);
             unset($a->photos);
         }
-        return response(['data'=>$articles->toArray(), 'image_path'=>url('uploads/article_images')], 200);
+        return response(['data'=>$articles->toArray(), 'image_path'=>url('uploads/article_images')], 200)->header('Content-Type', 'text/plain');
         //return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
     }
 
@@ -109,7 +109,7 @@ class ArticleAPIController extends AppBaseController
         unset($article->facilities);
         unset($article->tags_public);
 
-        return response(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200);
+        return response(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200)->header('Content-Type', 'text/plain');
         //return $this->sendResponse($article->toArray(), 'Article retrieved successfully');
     }
 
