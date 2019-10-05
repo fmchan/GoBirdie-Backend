@@ -109,7 +109,8 @@ class ArticleAPIController extends AppBaseController
         unset($article->facilities);
         unset($article->tags_public);
 
-        return response(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200)->header('Content-Type', 'text/plain; charset=utf-8');
+        return response()->json(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200,
+        ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
         //return $this->sendResponse($article->toArray(), 'Article retrieved successfully');
     }
 
