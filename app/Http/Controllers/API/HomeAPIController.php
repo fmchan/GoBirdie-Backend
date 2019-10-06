@@ -100,17 +100,17 @@ class HomeAPIController extends AppBaseController
             array_push($highlightPlacesArr, $i);
         }
 
-        return response([
+        return $this->sendResponse([
             'banners'=>$banners->toArray(), 
             'category_places'=>$categoryPlaces->toArray(), 
             'highlight_articles'=>$highlightArticlesArr, 
             'highlight_places'=>$highlightPlacesArr, 
-            'path'=>[
-                'banners'=>'uploads/banners',
-                'category_places'=>'uploads/icons',
-                'highlight_articles'=>'uploads/article_images',
-                'highlight_places'=>'uploads/place_images',
+            'paths'=>[
+                'banners'=>url('uploads/banners'),
+                'category_places'=>url('uploads/icons'),
+                'highlight_articles'=>url('uploads/article_images'),
+                'highlight_places'=>url('uploads/place_images'),
             ]
-        ], 200);
+        ], 'Home retrieved successfully');
     }
 }
