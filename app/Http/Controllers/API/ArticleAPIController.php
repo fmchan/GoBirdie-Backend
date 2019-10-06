@@ -50,8 +50,8 @@ class ArticleAPIController extends AppBaseController
             unset($a->display);
             unset($a->photos);
         }
-        return response(['data'=>$articles->toArray(), 'image_path'=>url('uploads/article_images')], 200)->header('Content-Type', 'text/plain; charset=utf-8');
-        //return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
+        //return response(['data'=>$articles->toArray(), 'image_path'=>url('uploads/article_images')], 200)->header('Content-Type', 'text/plain; charset=utf-8');
+        return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
     }
 
     public function addHeart($id, Request $request) {
@@ -109,9 +109,9 @@ class ArticleAPIController extends AppBaseController
         unset($article->facilities);
         unset($article->tags_public);
 
-        return response()->json(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200,
-        ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
-        //return $this->sendResponse($article->toArray(), 'Article retrieved successfully');
+        /*return response()->json(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200,
+        ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);*/
+        return $this->sendResponse($article->toArray(), 'Article retrieved successfully');
     }
 
     /**

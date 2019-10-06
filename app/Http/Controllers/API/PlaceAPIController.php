@@ -59,7 +59,7 @@ class PlaceAPIController extends AppBaseController
             ['id','title','categories','photos','facilities','address','telephone'],
             ['rank'=>'desc', 'id'=>'desc']
         );
-        $articles['image_path'] = url('uploads/place_images');
+        //$articles['image_path'] = url('uploads/place_images');
 
         return $this->sendResponse($places->toArray(), 'Places retrieved successfully');
     }

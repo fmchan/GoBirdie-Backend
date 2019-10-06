@@ -45,7 +45,8 @@ class Category_placeAPIController extends AppBaseController
             [$rank_field=>'desc', 'id'=>'desc']
         );
         //$categoryPlaces['image_path'] = url('uploads/icons');
-        return response(['data'=>$categoryPlaces->toArray(), 'image_path'=>url('uploads/article_images')], 200);
+        return $this->sendResponse($categoryPlaces->toArray(), 'Category Places retrieved successfully');
+        //return response(['data'=>$categoryPlaces->toArray(), 'image_path'=>url('uploads/icons')], 200);
         //return $this->sendResponse(['data'=>$categoryPlaces->toArray(), 'image_path'=>url('uploads/icons')], 'Category Articles retrieved successfully');
     }
 

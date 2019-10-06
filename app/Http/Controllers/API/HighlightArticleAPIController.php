@@ -55,8 +55,8 @@ class HighlightArticleAPIController extends AppBaseController
             //'title','heart','photos','display'
         }
 
-        return response(['data'=>$data, 'image_path'=>url('uploads/article_images')], 200);
-        //return $this->sendResponse($highlightArticles->toArray(), 'Highlight Articles retrieved successfully');
+        //return response(['data'=>$data, 'image_path'=>url('uploads/article_images')], 200);
+        return $this->sendResponse($highlightArticles->toArray(), 'Highlight Articles retrieved successfully');
     }
 
     /**

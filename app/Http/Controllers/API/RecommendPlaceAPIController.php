@@ -52,8 +52,8 @@ class RecommendPlaceAPIController extends AppBaseController
             array_push($data, $i);
         }
 
-        return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
-        //return $this->sendResponse($recommendPlaces->toArray(), 'Recommend Places retrieved successfully');
+        //return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
+        return $this->sendResponse($recommendPlaces->toArray(), 'Recommend Places retrieved successfully');
     }
 
     /**

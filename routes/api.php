@@ -55,3 +55,5 @@ Route::resource('hot_keyword_places', 'HotKeywordPlaceAPIController');
 Route::resource('hot_keyword_articles', 'HotKeywordArticleAPIController');
 
 Route::resource('pages', 'PageAPIController');
+
+Route::get('/home', 'HomeAPIController@index')->name('api.home');
