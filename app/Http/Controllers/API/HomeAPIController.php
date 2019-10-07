@@ -6,6 +6,7 @@ use App\Repositories\BannerRepository;
 use App\Repositories\Category_placeRepository;
 use App\Repositories\HighlightArticleRepository;
 use App\Repositories\HighlightPlaceRepository;
+use App\Repositories\FacilityRepository;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -20,17 +21,20 @@ class HomeAPIController extends AppBaseController
     private $categoryPlaceRepository;
     private $highlightArticleRepository;
     private $highlightPlaceRepository;
+    private $facilityRepository;
 
     public function __construct(
         BannerRepository $bannerRepo,
         Category_placeRepository $categoryPlaceRepo,
         HighlightArticleRepository $highlightArticleRepo,
-        HighlightPlaceRepository $highlightPlaceRepo
+        HighlightPlaceRepository $highlightPlaceRepo,
+        FacilityRepository $facilityRepo
     ) {
         $this->bannerRepository = $bannerRepo;
         $this->categoryPlaceRepository = $categoryPlaceRepo;
         $this->highlightArticleRepository = $highlightArticleRepo;
         $this->highlightPlaceRepository = $highlightPlaceRepo;
+        $this->facilityRepository = $facilityRepo;
     }
 
     public function index() {
@@ -89,15 +93,15 @@ class HomeAPIController extends AppBaseController
         );
         $highlightPlacesArr = array();
         foreach($highlightPlaces as $a) {
-            $i['id'] = $a->id;
-            $i['place_id'] = $a->place_id;
-            $i['title'] = $a->place->title;
-            $i['categories'] = $a->place->categories;
-            $i['photos'] = $a->place->photos;
-            $i['facilities'] = $a->place->facilities;
-            $i['address'] = $a->place->address;
-            $i['telephone'] = $a->place->telephone;
-            array_push($highlightPlacesArr, $i);
+            $p['id'] = $a->id;
+            $p['place_id'] = $a->place_id;
+            $p['title'] = $a->place->title;
+            $p['address'] = $a->place->address;
+            $p['telephone'] = $a->place->telephone;
+            $p['photos'] = $a->place->getPhotos();
+            $p['categories'] = $this->categoryPlaceRepository->find(explode(",", $a->place->categories), ['id','name']);
+            $p['facilities'] = $this->facilityRepository->find(explode(",", $a->place->facilities), ['id','icon']);
+            array_push($highlightPlacesArr, $p);
         }
 
         return $this->sendResponse([
