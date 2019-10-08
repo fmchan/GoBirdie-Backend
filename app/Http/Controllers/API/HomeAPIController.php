@@ -38,6 +38,17 @@ class HomeAPIController extends AppBaseController
     }
 
     public function index() {
+
+        $request = new Request();
+        $request->request->add(['status' => 'A']);
+        $facilities = $this->facilityRepository->all2(
+            $request->except(['skip', 'limit']),
+            $request->get('skip'),
+            $request->get('limit'),
+            ['id','icon','name'],
+            ['rank'=>'desc', 'id'=>'desc']
+        );
+
         // banner
         $request = new Request();
         $request->request->add(['status' => 'A', 'dateInRange' => Carbon::now()]);
@@ -105,15 +116,17 @@ class HomeAPIController extends AppBaseController
         }
 
         return $this->sendResponse([
+            'facilities'=>$facilities->toArray(), 
             'banners'=>$banners->toArray(), 
             'category_places'=>$categoryPlaces->toArray(), 
             'highlight_articles'=>$highlightArticlesArr, 
             'highlight_places'=>$highlightPlacesArr, 
             'paths'=>[
-                'banners'=>url('uploads/banners'),
-                'category_places'=>url('uploads/icons'),
-                'highlight_articles'=>url('uploads/article_images'),
-                'highlight_places'=>url('uploads/place_images'),
+                'banners'=>url('uploads/banners').'/',
+                'category_places'=>url('uploads/icons/').'/',
+                'articles'=>url('uploads/article_images/').'/',
+                'places'=>url('uploads/place_images/').'/',
+                'facilities'=>url('uploads/facilities/').'/',
             ]
         ], 'Home retrieved successfully');
     }
