@@ -99,6 +99,12 @@ abstract class BaseRepository
                     })->where(function ($subQ) use ($value) {
                         $subQ->where('end','>=', $value)->orWhereNull('end');
                     });
+                elseif($key == 'search' && (isset($this->fieldFullTextSearch)))
+                    $query->where(function ($subQ) use ($value) {
+                        foreach($this->fieldFullTextSearch as $i => $field)
+                            if($i == 0) $subQ->where($field, 'LIKE', '%'.$value.'%');
+                            else $subQ->orWhere($field, 'LIKE', '%'.$value.'%');
+                    });
             }
         }
 

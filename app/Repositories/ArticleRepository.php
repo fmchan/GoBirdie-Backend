@@ -17,7 +17,6 @@ class ArticleRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'title',
         'start',
         'end',
         'display',
@@ -35,9 +34,13 @@ class ArticleRepository extends BaseRepository
         'fee',
         'email',
         'website',
-        'content',
         'rank',
         'status',
+    ];
+
+    protected $fieldFullTextSearch = [
+        'title',
+        'content',
     ];
 
     protected $fieldInSet = [
@@ -62,6 +65,10 @@ class ArticleRepository extends BaseRepository
     public function getFieldsInSet()
     {
         return $this->fieldInSet;
+    }
+    public function fieldFullTextSearch()
+    {
+        return $this->fieldFullTextSearch;
     }
 
     /**
