@@ -6,6 +6,7 @@ use App\Http\Requests\API\CreateRecommendPlaceAPIRequest;
 use App\Http\Requests\API\UpdateRecommendPlaceAPIRequest;
 use App\Models\RecommendPlace;
 use App\Repositories\RecommendPlaceRepository;
+use App\Repositories\Category_placeRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -32,7 +33,7 @@ class RecommendPlaceAPIController extends AppBaseController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Category_placeRepository $categoryPlaceRepo)
     {
         $request->request->add(['status' => 'A']);
         $recommendPlaces = $this->recommendPlaceRepository->all2(
@@ -47,13 +48,13 @@ class RecommendPlaceAPIController extends AppBaseController
             $i['id'] = $a->id;
             $i['place_id'] = $a->place_id;
             $i['title'] = $a->place->title;
-            $i['categories'] = $a->place->categories;
-            $i['photos'] = $a->place->photos;
+            $i['categories'] = $categoryPlaceRepo->find(explode(",", $a->place->categories), ['id','name']);
+            $i['photo'] = $a->place->getPhoto(0);
             array_push($data, $i);
         }
 
         //return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
-        return $this->sendResponse($recommendPlaces->toArray(), 'Recommend Places retrieved successfully');
+        return $this->sendResponse($data, 'Recommend Places retrieved successfully');
     }
 
     /**
