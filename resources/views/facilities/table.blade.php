@@ -15,7 +15,7 @@
             <tr>
                 <td>{!! $facility->id !!}</td>
                 <td>{!! $facility->name !!}</td>
-            <td><img src="{{ asset('/uploads/facilities/'.$facility->icon) }}"/></td>
+            <td><img style="width:100px" src="{{ asset('/uploads/facilities/'.$facility->icon) }}"/></td>
             <td>{!! $facility->rank !!}</td>
             <td>{!! $facility->status !!}</td>
                 <td>

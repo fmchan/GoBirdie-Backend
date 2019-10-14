@@ -12,7 +12,11 @@
 <!-- Icon Field -->
 <div class="form-group">
     {!! Form::label('icon', 'Icon:') !!}
-    <p>{!! $categoryPlace->icon !!}</p>
+    <p>
+    @if(isset($categoryPlace->icon))
+    <img style="width:100px" src="{!! asset('/uploads/icons/'.$categoryPlace->icon) !!}"/>
+    @endif
+    </p>
 </div>
 
 <!-- Rank Home Field -->

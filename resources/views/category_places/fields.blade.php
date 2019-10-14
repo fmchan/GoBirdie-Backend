@@ -8,7 +8,7 @@
       {{Form::label('photo', 'Icon',['class' => 'control-label'])}}
       <span class="required">*</span>
       @if(isset($categoryPlace->icon))
-      <img src="{!! asset('/uploads/icons/'.$categoryPlace->icon) !!}"/>
+      <img style="width:100px" src="{!! asset('/uploads/icons/'.$categoryPlace->icon) !!}"/>
       @endif
       {{Form::file('photo')}}
   </div>

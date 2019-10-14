@@ -16,7 +16,7 @@
             <tr>
                 <td>{!! $categoryPlace->id !!}</td>
                 <td>{!! $categoryPlace->name !!}</td>
-            <td><img src="{{ asset('/uploads/icons/'.$categoryPlace->icon) }}"/></td>
+            <td><img style="width:100px" src="{{ asset('/uploads/icons/'.$categoryPlace->icon) }}"/></td>
             <td>{!! $categoryPlace->rank_home !!}</td>
             <td>{!! $categoryPlace->rank_place !!}</td>
             <td>{!! $categoryPlace->status !!}</td>

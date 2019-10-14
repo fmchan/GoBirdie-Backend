@@ -13,7 +13,11 @@
 <!-- Icon Field -->
 <div class="form-group">
     {!! Form::label('icon', 'Icon:') !!}
-    <p>{!! $facility->icon !!}</p>
+    <p>
+    @if(isset($facility->icon))
+        <img style="width:100px" src="{!! asset('/uploads/facilities/'.$facility->icon) !!}"/>
+    @endif
+    </p>
 </div>
 
 <!-- Rank Field -->
