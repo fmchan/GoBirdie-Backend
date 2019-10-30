@@ -6,6 +6,8 @@ use App\Http\Requests\API\CreatePlaceAPIRequest;
 use App\Http\Requests\API\UpdatePlaceAPIRequest;
 use App\Models\Place;
 use App\Repositories\PlaceRepository;
+use App\Repositories\Category_placeRepository;
+use App\Repositories\FacilityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -43,7 +45,7 @@ class PlaceAPIController extends AppBaseController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Category_placeRepository $categoryPlaceRepo, FacilityRepository $facilityRepo)
     {
         /*
             range: age,fee_number
@@ -61,7 +63,19 @@ class PlaceAPIController extends AppBaseController
         );
         //$articles['image_path'] = url('uploads/place_images');
 
-        return $this->sendResponse($places->toArray(), 'Places retrieved successfully');
+        $data = array();
+        foreach($places as $p) {
+            $i['photos'] = $p->getPhotos();
+            $i['categories'] = $categoryPlaceRepo->find(explode(",", $p->categories), ['id','name']);
+            $i['facilities'] = $facilityRepo->find(explode(",", $p->facilities), ['id','icon']);
+            $i['id'] = $p->id;
+            $i['title'] = $p->title;
+            $i['address'] = $p->address;
+            $i['telephone'] = $p->telephone;
+            array_push($data, $i);
+        }
+
+        return $this->sendResponse($data, 'Places retrieved successfully');
     }
 
     /**
