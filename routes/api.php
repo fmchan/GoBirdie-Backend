@@ -39,8 +39,8 @@ Route::resource('areas', 'AreaAPIController');
 
 Route::resource('hours', 'HourAPIController');
 
-Route::post('/articles/{id}/heart', 'ArticleAPIController@addHeart')->name('articles.heart');
-Route::post('/places/{id}/heart', 'PlaceAPIController@addHeart')->name('places.heart');
+Route::post('/articles/{id}/heart', 'ArticleAPIController@operateHeart')->name('articles.heart');
+Route::post('/places/{id}/heart', 'PlaceAPIController@operateHeart')->name('places.heart');
 
 Route::resource('banners', 'BannerAPIController');
 

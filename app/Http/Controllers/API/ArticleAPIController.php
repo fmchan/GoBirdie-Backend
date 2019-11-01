@@ -54,12 +54,13 @@ class ArticleAPIController extends AppBaseController
         return $this->sendResponse($articles->toArray(), 'Articles retrieved successfully');
     }
 
-    public function addHeart($id, Request $request) {
+    public function operateHeart($id, Request $request) {
+        if(!$request->has('add')) return $this->sendError('Invalid request for heart');
         $article = $this->articleRepository->find($id);
         if (empty($article)) {
             return $this->sendError('Article not found');
         }
-        $input['heart'] = $article->heart + 1;
+        $input['heart'] = $request->input('add') ? $article->heart + 1 : $article->heart - 1;
         $article = $this->articleRepository->update($input, $id);
 
         return $this->sendResponse($article->heart, 'heart added!');
