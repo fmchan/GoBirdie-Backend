@@ -83,8 +83,8 @@ class HomeAPIController extends AppBaseController
         );
         $highlightArticlesArr = array();
         foreach($highlightArticles as $a) {
-            $i['id'] = $a->id;
-            $i['article_id'] = $a->article_id;
+            $i['ref_id'] = $a->id;
+            $i['id'] = $a->article_id;
             $i['title'] = $a->article->title;
             $i['heart'] = $a->article->heart;
             $i['photo'] = $a->article->getPhoto(0);
@@ -104,8 +104,8 @@ class HomeAPIController extends AppBaseController
         );
         $highlightPlacesArr = array();
         foreach($highlightPlaces as $a) {
-            $p['id'] = $a->id;
-            $p['place_id'] = $a->place_id;
+            $p['ref_id'] = $a->id;
+            $p['id'] = $a->place_id;
             $p['title'] = $a->place->title;
             $p['address'] = $a->place->address;
             $p['telephone'] = $a->place->telephone;

@@ -44,8 +44,8 @@ class HighlightArticleAPIController extends AppBaseController
         );
         $data = array();
         foreach($highlightArticles as $a) {
-            $i['id'] = $a->id;
-            $i['article_id'] = $a->article_id;
+            $i['ref_id'] = $a->id;
+            $i['id'] = $a->article_id;
             $i['title'] = $a->article->title;
             $i['heart'] = $a->article->heart;
             $i['photo'] = $a->article->getPhoto(0);

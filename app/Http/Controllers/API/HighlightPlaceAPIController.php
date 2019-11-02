@@ -6,6 +6,8 @@ use App\Http\Requests\API\CreateHighlightPlaceAPIRequest;
 use App\Http\Requests\API\UpdateHighlightPlaceAPIRequest;
 use App\Models\HighlightPlace;
 use App\Repositories\HighlightPlaceRepository;
+use App\Repositories\Category_placeRepository;
+use App\Repositories\FacilityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -32,7 +34,7 @@ class HighlightPlaceAPIController extends AppBaseController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Category_placeRepository $categoryPlaceRepo, FacilityRepository $facilityRepo)
     {
         $request->request->add(['status' => 'A']);
         $highlightPlaces = $this->highlightPlaceRepository->all2(
@@ -43,17 +45,16 @@ class HighlightPlaceAPIController extends AppBaseController
             ['rank'=>'desc', 'id'=>'desc']
         );
         $data = array();
-        foreach($highlightPlaces as $a) {
-            $i['id'] = $a->id;
-            $i['place_id'] = $a->place_id;
-            $i['title'] = $a->place->title;
-            $i['categories'] = $a->place->categories;
-            $i['photos'] = $a->place->photos;
-            $i['facilities'] = $a->place->facilities;
-            $i['address'] = $a->place->address;
-            $i['telephone'] = $a->place->telephone;
+        foreach($highlightPlaces as $p) {
+            $i['photos'] = $p->getPhotos();
+            $i['categories'] = $categoryPlaceRepo->find(explode(",", $p->categories), ['id','name']);
+            $i['facilities'] = $facilityRepo->find(explode(",", $p->facilities), ['id','icon']);
+            $i['ref_id'] = $p->id;
+            $i['id'] = $p->place_id;
+            $i['title'] = $p->title;
+            $i['address'] = $p->address;
+            $i['telephone'] = $p->telephone;
             array_push($data, $i);
-            //['id','title','categories','photos','facilities','address','telephone'],
         }
 
         //return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
