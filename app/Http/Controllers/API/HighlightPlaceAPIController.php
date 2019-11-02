@@ -57,7 +57,7 @@ class HighlightPlaceAPIController extends AppBaseController
         }
 
         //return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
-        return $this->sendResponse($highlightPlaces->toArray(), 'Highlight Places retrieved successfully');
+        return $this->sendResponse($data, 'Highlight Places retrieved successfully');
     }
 
     /**

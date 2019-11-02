@@ -73,7 +73,7 @@ class HomeAPIController extends AppBaseController
 
         // highlightArticle
         $request = new Request();
-        $request->request->add(['status' => 'A']);
+        $request->request->add(['status' => 'A', 'limit' => 4]);
         $highlightArticles = $this->highlightArticleRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
@@ -94,7 +94,7 @@ class HomeAPIController extends AppBaseController
 
         // highlightPlace
         $request = new Request();
-        $request->request->add(['status' => 'A']);
+        $request->request->add(['status' => 'A', 'limit' => 5]);
         $highlightPlaces = $this->highlightPlaceRepository->all2(
             $request->except(['skip', 'limit']),
             $request->get('skip'),
