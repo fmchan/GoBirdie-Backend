@@ -45,16 +45,16 @@ class HighlightPlaceAPIController extends AppBaseController
             ['rank'=>'desc', 'id'=>'desc']
         );
         $data = array();
-        foreach($highlightPlaces as $p) {
-            $i['photos'] = $p->getPhotos();
-            $i['categories'] = $categoryPlaceRepo->find(explode(",", $p->categories), ['id','name']);
-            $i['facilities'] = $facilityRepo->find(explode(",", $p->facilities), ['id','icon']);
-            $i['ref_id'] = $p->id;
-            $i['id'] = $p->place_id;
-            $i['title'] = $p->title;
-            $i['address'] = $p->address;
-            $i['telephone'] = $p->telephone;
-            array_push($data, $i);
+        foreach($highlightPlaces as $a) {
+            $p['ref_id'] = $a->id;
+            $p['id'] = $a->place_id;
+            $p['title'] = $a->place->title;
+            $p['address'] = $a->place->address;
+            $p['telephone'] = $a->place->telephone;
+            $p['photos'] = $a->place->getPhotos();
+            $p['categories'] = $categoryPlaceRepo->find(explode(",", $a->place->categories), ['id','name']);
+            $p['facilities'] = $facilityRepo->find(explode(",", $a->place->facilities), ['id','icon']);
+            array_push($data, $p);
         }
 
         //return response(['data'=>$data, 'image_path'=>url('uploads/place_images')], 200);
