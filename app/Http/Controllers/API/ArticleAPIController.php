@@ -8,6 +8,8 @@ use App\Models\Article;
 use App\Repositories\ArticleRepository;
 use App\Repositories\FacilityRepository;
 use App\Repositories\TagRepository;
+use App\Repositories\Category_placeRepository;
+use App\Repositories\PlaceRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -91,10 +93,10 @@ class ArticleAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id, FacilityRepository $facilityRepo, TagRepository $tagRepo)
+    public function show($id, PlaceRepository $placeRepo, FacilityRepository $facilityRepo, TagRepository $tagRepo, Category_placeRepository $categoryPlaceRepo)
     {
         /** @var Article $article */
-        $article = $this->articleRepository->find($id, ['id','title','heart','display','address','book','content','email','fee','gps','opening','telephone','transport_long','transport_short','website','photos','tags_public','facilities']);
+        $article = $this->articleRepository->find($id, ['id','title','heart','display','address','book','content','email','fee','gps','opening','telephone','transport_long','transport_short','website','photos','tags_public','facilities','related_articles','related_places']);
 
         if (empty($article)) {
             return $this->sendError('Article not found');
@@ -105,10 +107,37 @@ class ArticleAPIController extends AppBaseController
         $article->icons = $facilityRepo->find(explode(",", $article->facilities), ['id','name','icon']);
         $article->tags = $tagRepo->find(explode(",", $article->tags_public), ['id','name']);
 
+        $article->articles = $this->articleRepository->find(explode(",", $article->related_articles), ['id','title','heart','photos','display']);
+
+        $article->tmp_places = $placeRepo->find(explode(",", $article->related_places), ['id','title','categories','photos']);
+
+        foreach($article->articles as $a) {
+            $a->date = $a->display->format('Y-m-d');
+            $a->photo = $a->getPhoto(0);
+            unset($a->display);
+            unset($a->photos);
+        }
+
+        $places = array();
+        foreach($article->tmp_places as $p) {
+            $i['photos'] = $p->getPhotos();
+            $i['categories'] = $categoryPlaceRepo->find(explode(",", $p->categories), ['id','name']);
+            $i['facilities'] = $facilityRepo->find(explode(",", $p->facilities), ['id','icon']);
+            $i['id'] = $p->id;
+            $i['title'] = $p->title;
+            $i['address'] = $p->address;
+            $i['telephone'] = $p->telephone;
+            array_push($places, $i);
+        }
+        $article->places = $places;
+
         unset($article->display);
+        unset($place->tmp_places);
         unset($article->photos);
         unset($article->facilities);
         unset($article->tags_public);
+        unset($article->related_places);
+        unset($article->related_articles);
 
         /*return response()->json(['data'=>$article->toArray(), 'image_path'=>url('uploads/article_images')], 200,
         ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);*/

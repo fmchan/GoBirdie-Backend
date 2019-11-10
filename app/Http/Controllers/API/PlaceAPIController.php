@@ -6,6 +6,8 @@ use App\Http\Requests\API\CreatePlaceAPIRequest;
 use App\Http\Requests\API\UpdatePlaceAPIRequest;
 use App\Models\Place;
 use App\Repositories\PlaceRepository;
+use App\Repositories\ArticleRepository;
+use App\Repositories\TagRepository;
 use App\Repositories\Category_placeRepository;
 use App\Repositories\FacilityRepository;
 use Illuminate\Http\Request;
@@ -104,14 +106,48 @@ class PlaceAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show($id, ArticleRepository $articleRepo, FacilityRepository $facilityRepo, TagRepository $tagRepo, Category_placeRepository $categoryPlaceRepo)
     {
-        /** @var Place $place */
-        $place = $this->placeRepository->find($id);
+        $place = $this->placeRepository->find($id, ['id','title','heart','address','book','content','email','fee','gps','opening','telephone','transport_long','transport_short','website','photos','tags_public','facilities','related_articles','related_places']);
 
         if (empty($place)) {
             return $this->sendError('Place not found');
         }
+
+        $place->slides = $place->getPhotos();
+        $place->icons = $facilityRepo->find(explode(",", $place->facilities), ['id','name','icon']);
+        $place->tags = $tagRepo->find(explode(",", $place->tags_public), ['id','name']);
+
+        $place->articles = $articleRepo->find(explode(",", $place->related_articles), ['id','title','heart','photos','display']);
+
+        $place->tmp_places = $this->placeRepository->find(explode(",", $place->related_places), ['id','title','categories','photos']);
+
+        foreach($place->articles as $a) {
+            $a->date = $a->display->format('Y-m-d');
+            $a->photo = $a->getPhoto(0);
+            unset($a->display);
+            unset($a->photos);
+        }
+
+        $places = array();
+        foreach($place->tmp_places as $p) {
+            $i['photos'] = $p->getPhotos();
+            $i['categories'] = $categoryPlaceRepo->find(explode(",", $p->categories), ['id','name']);
+            $i['facilities'] = $facilityRepo->find(explode(",", $p->facilities), ['id','icon']);
+            $i['id'] = $p->id;
+            $i['title'] = $p->title;
+            $i['address'] = $p->address;
+            $i['telephone'] = $p->telephone;
+            array_push($places, $i);
+        }
+        $place->places = $places;
+
+        unset($place->tmp_places);
+        unset($place->photos);
+        unset($place->facilities);
+        unset($place->tags_public);
+        unset($place->related_places);
+        unset($place->related_articles);
 
         return $this->sendResponse($place->toArray(), 'Place retrieved successfully');
     }
