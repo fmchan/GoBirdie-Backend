@@ -132,7 +132,7 @@ class ArticleAPIController extends AppBaseController
         $article->places = $places;
 
         unset($article->display);
-        unset($place->tmp_places);
+        unset($article->tmp_places);
         unset($article->photos);
         unset($article->facilities);
         unset($article->tags_public);
