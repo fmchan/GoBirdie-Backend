@@ -120,13 +120,14 @@ class ArticleAPIController extends AppBaseController
 
         $places = array();
         foreach($article->tmp_places as $p) {
-            $i['photos'] = $p->getPhotos();
+            //$i['photos'] = $p->getPhotos();
+            $i['photo'] = $p->getPhoto(0);
             $i['categories'] = $categoryPlaceRepo->find(explode(",", $p->categories), ['id','name']);
-            $i['facilities'] = $facilityRepo->find(explode(",", $p->facilities), ['id','icon']);
+            //$i['facilities'] = $facilityRepo->find(explode(",", $p->facilities), ['id','icon']);
             $i['id'] = $p->id;
             $i['title'] = $p->title;
-            $i['address'] = $p->address;
-            $i['telephone'] = $p->telephone;
+            //$i['address'] = $p->address;
+            //$i['telephone'] = $p->telephone;
             array_push($places, $i);
         }
         $article->places = $places;
