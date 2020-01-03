@@ -11,6 +11,9 @@ use App\Repositories\FacilityRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
+use Notification;
+use ExponentPhpSDK\Expo;
+
 use Response;
 use Carbon\Carbon;
 
@@ -129,5 +132,27 @@ class HomeAPIController extends AppBaseController
                 'facilities'=>url('uploads/facilities/').'/',
             ]
         ], 'Home retrieved successfully');
+    }
+
+    public function subscribe(Request $request, Expo $expo) {
+        $rules = [
+            'token' => ['required'],
+        ];
+        $request->validate($rules);
+        $channelName = 'defualt';
+        $token = $request->token;
+        return $this->sendResponse($expo->subscribe($channelName, $token), 'Token subscribed!');
+    }
+
+    public function test(Expo $expo) {
+        $channelName = 'group_4815';
+        $recipient1 = 'ExponentPushToken[AjubmJPUKtBYWtx_8yzODi]';
+        $details = ['body' => 'Hello World!', 'data'=> json_encode(array('someData' => 'goes here'))];
+        //$expo->subscribe($channelName, $recipient1);
+        $expo->notify($channelName, $details, true);
+        //Expo::subscribe($channelName, $recipient1);
+        //new MyFirstNotification();
+        //Notification::send($recipient1, new MyFirstNotification());
+        //Notification::send(new MyFirstNotification());
     }
 }

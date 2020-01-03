@@ -76,6 +76,9 @@
 <li class="{{ Request::is('pages*') ? 'active' : '' }}">
     <a href="{!! route('pages.index') !!}"><i class="fa fa-edit"></i><span>Pages</span></a>
 </li>
+<li class="{{ Request::is('pushes*') ? 'active' : '' }}">
+    <a href="{!! route('pushes.index') !!}"><i class="fa fa-edit"></i><span>Pushes</span></a>
+</li>
 
 <h4>User Management</h4>
 @can('user-list')
@@ -93,3 +96,4 @@
     <a href="{!! route('permissions.index') !!}"><i class="fa fa-edit"></i><span>Permission</span></a>
 </li>
 @endcan
+

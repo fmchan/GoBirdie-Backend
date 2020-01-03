@@ -56,4 +56,9 @@ Route::resource('hot_keyword_articles', 'HotKeywordArticleAPIController');
 
 Route::resource('pages', 'PageAPIController');
 
+Route::get('/test', 'HomeAPIController@test')->name('api.test');
+Route::post('/subscribe', 'HomeAPIController@subscribe')->name('api.subscribe');
+
 Route::get('/home', 'HomeAPIController@index')->name('api.home');
+
+Route::resource('pushes', 'PushAPIController');

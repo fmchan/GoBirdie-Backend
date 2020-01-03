@@ -187,6 +187,8 @@ return [
 
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+        NotificationChannels\ExpoPushNotifications\ExpoPushNotificationsServiceProvider::class,
+
     ],
 
     /*
