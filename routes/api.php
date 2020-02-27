@@ -60,5 +60,6 @@ Route::get('/test', 'HomeAPIController@test')->name('api.test');
 Route::post('/subscribe', 'HomeAPIController@subscribe')->name('api.subscribe');
 
 Route::get('/home', 'HomeAPIController@index')->name('api.home');
+Route::get('/advance', 'HomeAPIController@advanceSearchFilter')->name('api.advance');
 
 Route::resource('pushes', 'PushAPIController');

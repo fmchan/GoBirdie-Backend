@@ -8,6 +8,10 @@ use App\Repositories\HighlightArticleRepository;
 use App\Repositories\HighlightPlaceRepository;
 use App\Repositories\FacilityRepository;
 
+use App\Repositories\DistrictRepository;
+use App\Repositories\HourRepository;
+use App\Repositories\AreaRepository;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 
@@ -25,19 +29,28 @@ class HomeAPIController extends AppBaseController
     private $highlightArticleRepository;
     private $highlightPlaceRepository;
     private $facilityRepository;
+    private $districtRepository;
+    private $hourRepository;
+    private $areaRepository;
 
     public function __construct(
         BannerRepository $bannerRepo,
         Category_placeRepository $categoryPlaceRepo,
         HighlightArticleRepository $highlightArticleRepo,
         HighlightPlaceRepository $highlightPlaceRepo,
-        FacilityRepository $facilityRepo
+        FacilityRepository $facilityRepo,
+        DistrictRepository $districtRepo,
+        HourRepository $hourRepo,
+        AreaRepository $areaRepo
     ) {
         $this->bannerRepository = $bannerRepo;
         $this->categoryPlaceRepository = $categoryPlaceRepo;
         $this->highlightArticleRepository = $highlightArticleRepo;
         $this->highlightPlaceRepository = $highlightPlaceRepo;
         $this->facilityRepository = $facilityRepo;
+        $this->districtRepository = $districtRepo;
+        $this->hourRepository = $hourRepo;
+        $this->areaRepository = $areaRepo;
     }
 
     public function index() {
@@ -132,6 +145,44 @@ class HomeAPIController extends AppBaseController
                 'facilities'=>url('uploads/facilities/').'/',
             ]
         ], 'Home retrieved successfully');
+    }
+
+    public function advanceSearchFilter() {
+        $request = new Request();
+        $request->request->add(['status' => 'A']);
+        $areas = $this->areaRepository->all2(
+            $request->except(['skip', 'limit']),
+            $request->get('skip'),
+            $request->get('limit'),
+            ['id','name'],
+            ['rank'=>'desc', 'id'=>'desc']
+        );
+
+        $request = new Request();
+        $request->request->add(['status' => 'A']);
+        $districts = $this->districtRepository->all2(
+            $request->except(['skip', 'limit']),
+            $request->get('skip'),
+            $request->get('limit'),
+            ['id','name'],
+            ['rank'=>'desc', 'id'=>'desc']
+        );
+
+        $request = new Request();
+        $request->request->add(['status' => 'A']);
+        $hours = $this->hourRepository->all2(
+            $request->except(['skip', 'limit']),
+            $request->get('skip'),
+            $request->get('limit'),
+            ['id','name'],
+            ['rank'=>'desc', 'id'=>'desc']
+        );
+
+        return $this->sendResponse([
+            'areas'=>$areas->toArray(), 
+            'districts'=>$districts->toArray(), 
+            'hours'=>$hours->toArray(),
+        ], 'Advance search filters retrieved successfully');
     }
 
     public function subscribe(Request $request, Expo $expo) {
