@@ -11,6 +11,7 @@ use App\Repositories\FacilityRepository;
 use App\Repositories\DistrictRepository;
 use App\Repositories\HourRepository;
 use App\Repositories\AreaRepository;
+use App\Repositories\OrganizationRepository;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -32,6 +33,7 @@ class HomeAPIController extends AppBaseController
     private $districtRepository;
     private $hourRepository;
     private $areaRepository;
+    private $organizationRepository;
 
     public function __construct(
         BannerRepository $bannerRepo,
@@ -41,7 +43,8 @@ class HomeAPIController extends AppBaseController
         FacilityRepository $facilityRepo,
         DistrictRepository $districtRepo,
         HourRepository $hourRepo,
-        AreaRepository $areaRepo
+        AreaRepository $areaRepo,
+        OrganizationRepository $organizationRepo
     ) {
         $this->bannerRepository = $bannerRepo;
         $this->categoryPlaceRepository = $categoryPlaceRepo;
@@ -51,6 +54,7 @@ class HomeAPIController extends AppBaseController
         $this->districtRepository = $districtRepo;
         $this->hourRepository = $hourRepo;
         $this->areaRepository = $areaRepo;
+        $this->organizationRepo = $organizationRepo;
     }
 
     public function index() {
@@ -178,10 +182,21 @@ class HomeAPIController extends AppBaseController
             ['rank'=>'desc', 'id'=>'desc']
         );
 
+        $request = new Request();
+        $request->request->add(['status' => 'A']);
+        $organizations = $this->organizationRepo->all2(
+            $request->except(['skip', 'limit']),
+            $request->get('skip'),
+            $request->get('limit'),
+            ['id','name'],
+            ['rank'=>'desc', 'id'=>'desc']
+        );
+
         return $this->sendResponse([
             'areas'=>$areas->toArray(), 
             'districts'=>$districts->toArray(), 
             'hours'=>$hours->toArray(),
+            'organizations'=>$organizations->toArray(),
         ], 'Advance search filters retrieved successfully');
     }
 
