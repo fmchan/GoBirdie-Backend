@@ -32,6 +32,8 @@ class Push extends Model
         'body',
         'json',
         'ttl',
+        'type',
+        'link',
         'image',
         'channel'
     ];
@@ -46,6 +48,8 @@ class Push extends Model
         'title' => 'string',
         'body' => 'string',
         'json' => 'string',
+        'type' => 'string',
+        'link' => 'string',
         'ttl' => 'integer',
         'image' => 'string',
         'channel' => 'string'

@@ -18,6 +18,8 @@ class CreatePushesTable extends Migration
             $table->string('title')->nullable();
             $table->string('body');
             $table->string('json')->nullable();
+            $table->char('type', 1)->default('N');
+            $table->string('link')->nullable();
             $table->integer('ttl')->nullable();
             $table->string('image')->nullable();
             $table->string('channel');
