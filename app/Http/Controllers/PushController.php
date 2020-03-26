@@ -60,7 +60,11 @@ class PushController extends AppBaseController
 
         $push = $this->pushRepository->create($input);
 
-        $details = ['title' => $input['title'], 'body' => $input['body']];
+        //{ “message”: “This is a test message.” }
+        $details = [
+            'title' => $input['title'], 
+            'body' => $input['body'], 
+            'json' => '{\"type\":\"'.$input['type'].'\",\"link":\"'.$input['link'].'\"}'];
         $result = $expo->notify($input['channel'], $details, true);
 
         $message = '';
