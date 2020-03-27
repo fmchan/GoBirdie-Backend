@@ -63,8 +63,9 @@ class PushController extends AppBaseController
         //{ “message”: “This is a test message.” }
         $details = [
             'title' => $input['title'], 
-            'body' => $input['body'], 
-            'jsonData' => '{\"type\":\"'.$input['type'].'\",\"link":\"'.$input['link'].'\"}'];
+            'body' => $input['body'],
+            'data' => json_encode(['type' => $input['type'], 'link' => $input['link']]) 
+        ];
         $result = $expo->notify($input['channel'], $details, true);
 
         $message = '';
