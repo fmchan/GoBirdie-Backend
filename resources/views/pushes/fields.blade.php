@@ -13,7 +13,7 @@
 <!-- Type Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('type', 'Type:') !!}
-    {!! Form::select('type', ['N' => 'None', 'E' => 'External', 'P' => 'Place', 'A' => 'Article'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('type', ['N' => 'None', 'P' => 'Place', 'A' => 'Article'], null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Link Field -->
