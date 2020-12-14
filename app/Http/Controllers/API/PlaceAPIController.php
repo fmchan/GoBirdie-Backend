@@ -141,6 +141,7 @@ class PlaceAPIController extends AppBaseController
             //$i['telephone'] = $p->telephone;
             array_push($places, $i);
         }
+        $place->image_path = url('uploads/place_images/').'/';
         $place->places = $places;
 
         unset($place->tmp_places);

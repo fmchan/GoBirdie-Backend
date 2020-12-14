@@ -130,6 +130,7 @@ class ArticleAPIController extends AppBaseController
             //$i['telephone'] = $p->telephone;
             array_push($places, $i);
         }
+        $article->image_path = url('uploads/article_images/').'/';
         $article->places = $places;
 
         unset($article->display);
