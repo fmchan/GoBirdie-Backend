@@ -205,6 +205,7 @@ class HomeAPIController extends AppBaseController
             'token' => ['required'],
         ];
         $request->validate($rules);
+        $channelName = 'defualt';
         $token = $request->token;
         return $this->sendResponse((empty($request->get('disable')))? $expo->subscribe($channelName, $token): $expo->unsubscribe($channelName, $token), 'Token subscribed!');
     }
