@@ -70,7 +70,7 @@ class PushController extends AppBaseController
 
         $message = '';
         foreach($result as $i) {
-            $message .= 'status: ' . $i['status'] . ' (' . $i['id'] . ')<br>';
+            $message .= 'status: ' . $i['status'] . ((isset($i['id'])? ' (' . $i['id'] . ')': '').'<br>';
         }
         Flash::success($message);
 
