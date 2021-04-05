@@ -102,6 +102,7 @@ class ArticleAPIController extends AppBaseController
             return $this->sendError('Article not found');
         }
 
+        $article->short = $article->getShortContent();
         $article->date = $article->display->format('Y-m-d');
         $article->slides = $article->getPhotos();
         $article->icons = $facilityRepo->find(explode(",", $article->facilities), ['id','name','icon']);

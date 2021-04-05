@@ -13,6 +13,8 @@ class GenericModel extends Model
 {
     use SoftDeletes;
 
+    protected $cropWord = '{{readmore}}';
+
     protected $dates = ['deleted_at'];
 
     public $table;
@@ -159,6 +161,12 @@ class GenericModel extends Model
     public function getRelatedPlaces() {
         if (empty($this->places)) return null;
         return $this->keysToValues($this->places, Place::pluck('title','id')->toArray());
+    }
+
+    public function getShortContent() {
+        if (empty($this->content)) return null;
+        $match = strpos($this->content, $this->cropWord);
+        return $match? substr($this->content, 0, $match): null;
     }
 
 }
