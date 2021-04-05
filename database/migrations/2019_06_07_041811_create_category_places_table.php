@@ -17,7 +17,7 @@ class CreateCategoryPlacesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('icon');
-            $table->integer('rank_home')->default(0);
+            $table->integer('rank_home')->nullable();
             $table->integer('rank_place')->default(0);
             $table->char('status', 1)->default('A');
             $table->timestamps();
