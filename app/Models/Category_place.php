@@ -53,7 +53,7 @@ class Category_place extends Model
      */
     public static $rules = [
         'name' => 'required',
-        'rank_home' => 'required',
+        //'rank_home' => 'required',
         'rank_place' => 'required',
     ];
 
