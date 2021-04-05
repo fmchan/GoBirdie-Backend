@@ -92,7 +92,7 @@ abstract class BaseRepository
                 if (in_array($key, $this->getFieldsSearchable())) {
                     $query->where($key, $value);
                 } elseif (isset($this->fieldInSet) && in_array($key, $this->fieldInSet)) {
-                    if (str_contains($value,',')) {
+                    /*if (str_contains($value,',')) {
                         $valueArr = explode(",", $value);
                         $queryStr = '(';
                         foreach($valueArr as $k => $v) {
@@ -101,7 +101,7 @@ abstract class BaseRepository
                         }
                         $queryStr = ')';
                     }
-                    else
+                    else*/
                         $query->whereRaw('FIND_IN_SET('.$value.','.$key.')');
                 } elseif ($key == 'dateInRange')
                     $query->where(function ($subQ) use ($value) {
