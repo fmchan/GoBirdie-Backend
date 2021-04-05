@@ -91,6 +91,8 @@ abstract class BaseRepository
             foreach($search as $key => $value) {
                 if (in_array($key, $this->getFieldsSearchable())) {
                     $query->where($key, $value);
+                } elseif (isset($this->fieldSearchableAdvance) && in_array($key, $this->fieldSearchableAdvance) && is_array($value) && count($value) == 2) {
+                    $query->where($key, $value[0], $value[1]);
                 } elseif (isset($this->fieldInSet) && in_array($key, $this->fieldInSet)) {
                     if (empty($value)) continue;
                     if (str_contains($value,',')) {

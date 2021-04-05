@@ -59,45 +59,33 @@ class HomeAPIController extends AppBaseController
 
     public function index() {
 
-        $request = new Request();
-        $request->request->add(['status' => 'A']);
         $facilities = $this->facilityRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A'],
+            null, null,
             ['id','icon','name'],
             ['rank'=>'desc', 'id'=>'desc']
         );
 
         // banner
-        $request = new Request();
-        $request->request->add(['status' => 'A', 'dateInRange' => Carbon::now()]);
         $banners = $this->bannerRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A','dateInRange' => Carbon::now()],
+            null, null,
             ['id','title','photo','type','link'],
             ['rank'=>'desc', 'id'=>'desc']
         );
 
         // categoryPlace
-        $request = new Request();
-        $request->request->add(['status' => 'A']);
         $categoryPlaces = $this->categoryPlaceRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A','rank_home' => ['!=', null]],
+            null, null,
             array('id', 'name', 'icon'),
             ['rank_home'=>'desc', 'id'=>'desc']
         );
 
         // highlightArticle
-        $request = new Request();
-        $request->request->add(['status' => 'A', 'limit' => 4]);
         $highlightArticles = $this->highlightArticleRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A'],
+            null, 4,
             ['id','article_id'],
             ['rank'=>'desc', 'id'=>'desc']
         );
@@ -113,12 +101,9 @@ class HomeAPIController extends AppBaseController
         }
 
         // highlightPlace
-        $request = new Request();
-        $request->request->add(['status' => 'A', 'limit' => 5]);
         $highlightPlaces = $this->highlightPlaceRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A'],
+            null, 5,
             ['id','place_id'],
             ['rank'=>'desc', 'id'=>'desc']
         );
@@ -152,42 +137,30 @@ class HomeAPIController extends AppBaseController
     }
 
     public function advanceSearchFilter() {
-        $request = new Request();
-        $request->request->add(['status' => 'A']);
         $areas = $this->areaRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A'],
+            null, null,
             ['id','name'],
             ['rank'=>'desc', 'id'=>'desc']
         );
 
-        $request = new Request();
-        $request->request->add(['status' => 'A']);
         $districts = $this->districtRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A'],
+            null, null,
             ['id','name'],
             ['rank'=>'desc', 'id'=>'desc']
         );
 
-        $request = new Request();
-        $request->request->add(['status' => 'A']);
         $hours = $this->hourRepository->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A'],
+            null, null,
             ['id','name'],
             ['rank'=>'desc', 'id'=>'desc']
         );
 
-        $request = new Request();
-        $request->request->add(['status' => 'A']);
         $organizations = $this->organizationRepo->all2(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit'),
+            ['status' => 'A'],
+            null, null,
             ['id','name'],
             ['rank'=>'desc', 'id'=>'desc']
         );

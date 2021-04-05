@@ -19,9 +19,11 @@ class Category_placeRepository extends BaseRepository
     protected $fieldSearchable = [
         'name',
         'icon',
-        'rank_home',
         'rank_place',
         'status'
+    ];
+    protected $fieldSearchableAdvance = [
+        'rank_home',
     ];
 
     /**
@@ -33,7 +35,10 @@ class Category_placeRepository extends BaseRepository
     {
         return $this->fieldSearchable;
     }
-
+    public function getFieldSearchableAdvance()
+    {
+        return $this->fieldSearchableAdvance;
+    }
     /**
      * Configure the Model
      **/
