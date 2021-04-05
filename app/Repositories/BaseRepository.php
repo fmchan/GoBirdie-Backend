@@ -92,6 +92,7 @@ abstract class BaseRepository
                 if (in_array($key, $this->getFieldsSearchable())) {
                     $query->where($key, $value);
                 } elseif (isset($this->fieldInSet) && in_array($key, $this->fieldInSet)) {
+                    if (empty($value)) continue;
                     if (str_contains($value,',')) {
                         $valueArr = explode(",", $value);
                         $queryStr = '';
