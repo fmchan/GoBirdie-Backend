@@ -168,5 +168,9 @@ class GenericModel extends Model
         $match = strpos($this->content, $this->cropWord);
         return $match? substr($this->content, 0, $match): null;
     }
+    public function getContent() {
+        if (empty($this->content)) return null;
+        return $this->content.replace($this->cropWord, "");
+    }
 
 }

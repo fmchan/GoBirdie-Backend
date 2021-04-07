@@ -103,6 +103,7 @@ class ArticleAPIController extends AppBaseController
         }
 
         $article->short = $article->getShortContent();
+        $article->content = $article->getContent();
         $article->date = $article->display->format('Y-m-d');
         $article->slides = $article->getPhotos();
         $article->icons = $facilityRepo->find(explode(",", $article->facilities), ['id','name','icon']);

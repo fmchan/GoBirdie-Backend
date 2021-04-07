@@ -114,6 +114,8 @@ class PlaceAPIController extends AppBaseController
             return $this->sendError('Place not found');
         }
 
+        $article->short = $article->getShortContent();
+        $article->content = $article->getContent();
         $place->slides = $place->getPhotos();
         $place->icons = $facilityRepo->find(explode(",", $place->facilities), ['id','name','icon']);
         $place->tags = $tagRepo->find(explode(",", $place->tags_public), ['id','name']);
