@@ -170,7 +170,7 @@ class GenericModel extends Model
     }
     public function getContent() {
         if (empty($this->content)) return null;
-        return $this->content.replace($this->cropWord, "");
+        return str_replace($this->cropWord, "", $this->content);
     }
 
 }
