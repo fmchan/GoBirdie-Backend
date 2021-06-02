@@ -99,10 +99,11 @@ abstract class BaseRepository
                         $valueArr = explode(",", $value);
                         $queryStr = '';
                         foreach($valueArr as $k => $v) {
-                            $queryStr .= 'FIND_IN_SET('.$value.','.$key.')';
-                            if ($k < count($valueArr)) $queryStr .= ' OR ';
+                            $queryStr .= 'FIND_IN_SET('.$v.','.$key.')';
+                            if ($k < count($valueArr) - 1) $queryStr .= ' OR ';
                         }
-                        $queryStr = '('.$queryStr.')';
+                        $query->whereRaw('('.$queryStr.')');
+                        //echo $queryStr;
                     }
                     else
                         $query->whereRaw('FIND_IN_SET('.$value.','.$key.')');
@@ -129,6 +130,7 @@ abstract class BaseRepository
             $query->limit($limit);
         }
 
+        //echo $query->toSql()."\n";
         return $query;
     }
 

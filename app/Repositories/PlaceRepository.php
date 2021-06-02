@@ -18,7 +18,6 @@ class PlaceRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'city',
-        'district',
         'heart',
         'bookmark',
         'address',
@@ -33,7 +32,6 @@ class PlaceRepository extends BaseRepository
         'website',
         'rank',
         'status',
-        'organization',
         //'fee_number',
     ];
 
@@ -47,6 +45,8 @@ class PlaceRepository extends BaseRepository
         'related_places',
         'opening_hours',
         'areas',
+        'organization',
+        'district',
     ];
 
     protected $fieldFullTextSearch = [
